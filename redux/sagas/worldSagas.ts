@@ -11,6 +11,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import {
   AddEntitiesPayload,
   AddWorldPayload as AddWorldRequestPayload,
+  EntityIdNamePair,
   World,
 } from '@/types/types'
 import WorldService from '@/services/firebase/worldService'
@@ -51,17 +52,17 @@ function* handleRequestAddEntities(
     const worldId = action.payload.worldId
     const entityRequest = action.payload.entityRequests
 
-    const entityIds: string[] = (yield call(
+    const entityIds: EntityIdNamePair[] = (yield call(
       WorldService.createEntities,
       worldId as string,
       entityRequest,
-    )) as string[]
+    )) as EntityIdNamePair[]
 
     yield call(WorldService.updateWorld, worldId, { entityIds })
 
     const newWorld: Partial<World> = {
       id: worldId as string,
-      entityIds: (entityIds as string[]) || null,
+      entityIds: (entityIds as EntityIdNamePair[]) || null,
     }
 
     yield put(updateWorld(newWorld))

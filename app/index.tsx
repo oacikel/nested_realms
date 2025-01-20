@@ -31,6 +31,12 @@ export default function HomePage() {
         <View key={world.id}>
           <Text>{world.name}</Text>
           <Text>{world.description}</Text>
+          <Button
+            title="Enter World"
+            onPress={() => {
+              router.push(`${paths.world}?worldId=${world.id}`)
+            }}
+          />
         </View>
       ))}
     </View>

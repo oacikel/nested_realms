@@ -1,16 +1,20 @@
+export type EntityIdNamePair = {
+  id: string
+  name: string
+}
 export type World = {
   id: string
   name: string
   description: string
   createdAt: Date
-  entityIds: string[] | null
+  entityIds: EntityIdNamePair[] | null
 }
 
 export type WorldRequest = {
   name: string
   description: string
   createdAt: Date
-  entityIds?: string[]
+  entityIds?: EntityIdNamePair[]
 }
 
 export type Entity = {

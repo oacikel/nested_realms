@@ -1,4 +1,9 @@
-import { EntityRequest, World, WorldRequest } from '@/types/types'
+import {
+  EntityIdNamePair,
+  EntityRequest,
+  World,
+  WorldRequest,
+} from '@/types/types'
 import { FirebaseService } from './firebaseService'
 
 /*
@@ -39,22 +44,21 @@ const WorldService = {
   async createEntities(
     worldId: string,
     entities: EntityRequest[],
-  ): Promise<string[]> {
+  ): Promise<EntityIdNamePair[]> {
     const path = `${ENTITIES_PATH}/${worldId}/`
 
     const entityPromises = entities.map(async (entity) => {
       const entityId = await FirebaseService.setDocument(path, entity)
       if (entityId) {
-        return entityId
+        return { id: entityId, name: entity.name }
       }
       return null
     })
 
-    const entityIds = (await Promise.all(entityPromises)).filter(
-      (id): id is string => id !== null,
+    const entityIdNamePairs = (await Promise.all(entityPromises)).filter(
+      (entity): entity is EntityIdNamePair => entity !== null,
     )
-
-    return entityIds
+    return entityIdNamePairs
   },
 }
 
