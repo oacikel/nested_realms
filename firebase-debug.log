@@ -8086,3 +8086,81 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
     at Console._write (/Users/ocul/.cache/firebase/tools/lib/node_modules/winston-transport/index.js:103:17)
     at doWrite (/Users/ocul/.cache/firebase/tools/lib/node_modules/readable-stream/lib/_stream_writable.js:390:139)
 [error] 
+[debug] [2025-01-20T15:38:58.506Z] ----------------------------------------------------------------------
+[debug] [2025-01-20T15:38:58.507Z] Command:       /usr/local/bin/firebase /Users/ocul/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase emulators:start
+[debug] [2025-01-20T15:38:58.508Z] CLI Version:   13.0.3
+[debug] [2025-01-20T15:38:58.508Z] Platform:      darwin
+[debug] [2025-01-20T15:38:58.509Z] Node Version:  v18.5.0
+[debug] [2025-01-20T15:38:58.512Z] Time:          Mon Jan 20 2025 18:38:58 GMT+0300 (GMT+03:00)
+[debug] [2025-01-20T15:38:58.512Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-01-20T15:38:58.608Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-20T15:38:58.609Z] > authorizing via signed-in user (ogulcan.acikel@gmail.com)
+[debug] [2025-01-20T15:38:58.880Z] openjdk version "17.0.13" 2024-10-15 LTS
+OpenJDK Runtime Environment Zulu17.54+21-CA (build 17.0.13+11-LTS)
+OpenJDK 64-Bit Server VM Zulu17.54+21-CA (build 17.0.13+11-LTS, mixed mode, sharing)
+
+[debug] [2025-01-20T15:38:58.886Z] Parsed Java major version: 17
+[info] i  emulators: Starting emulators: database {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: database"}}
+[debug] [2025-01-20T15:38:59.867Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-20T15:38:59.869Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-20T15:38:59.869Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[warn] ⚠  emulators: It seems that you are running multiple instances of the emulator suite for project nested-realms. This may result in unexpected behavior. 
+[debug] [2025-01-20T15:38:59.882Z] [hub] writing locator at /var/folders/yy/t6z24k8577jgzpzyq4znf8jw0000gn/T/hub-nested-realms.json
+[debug] [2025-01-20T15:38:59.887Z] > refreshing access token with scopes: []
+[debug] [2025-01-20T15:38:59.889Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-01-20T15:38:59.890Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-01-20T15:39:00.209Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-01-20T15:39:00.212Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-01-20T15:39:00.261Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms [none]
+[debug] [2025-01-20T15:39:00.658Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms 200
+[debug] [2025-01-20T15:39:00.658Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms {"projectId":"nested-realms","projectNumber":"1018412166235","displayName":"Nested Realms","name":"projects/nested-realms","resources":{"hostingSite":"nested-realms","realtimeDatabaseInstance":"nested-realms-default-rtdb"},"state":"ACTIVE","etag":"1_e140db9b-af8d-43e6-9f69-ced3fc5fe639"}
+[debug] [2025-01-20T15:39:00.659Z] database rules config:  [{"instance":"nested-realms-default-rtdb","rules":"/Users/ocul/Documents/Projects/Personal/nested_realms/database.rules.json"}]
+[debug] [2025-01-20T15:39:00.663Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2025-01-20T15:39:00.664Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-01-20T15:39:00.664Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2025-01-20T15:39:00.664Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/Users/ocul/.cache/firebase/emulators/firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning"],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"/Users/ocul/.cache/firebase/emulators/firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\"],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2025-01-20T15:39:01.250Z] 18:39:01.249 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+ {"metadata":{"emulator":{"name":"database"},"message":"18:39:01.249 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
+[debug] [2025-01-20T15:39:01.325Z] 18:39:01.325 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+ {"metadata":{"emulator":{"name":"database"},"message":"18:39:01.325 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000\n"}}
+[debug] [2025-01-20T15:39:01.454Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-01-20T15:39:01.454Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2025-01-20T15:39:01.454Z] Starting Emulator UI with command {"binary":"node","args":["/Users/ocul/.cache/firebase/emulators/ui-v1.11.7/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/ocul/.cache/firebase/emulators/ui-v1.11.7/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2025-01-20T15:39:01.614Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2025-01-20T15:39:01.615Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[debug] [2025-01-20T15:39:01.731Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=nested-realms-default-rtdb
+[debug] [2025-01-20T15:39:01.732Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\n  \"rules\": {\n    \".read\": \"now < 1739912400000\",  // 2025-2-19\n    \".write\": \"now < 1739912400000\",  // 2025-2-19\n  }\n}"
+[debug] [2025-01-20T15:39:01.874Z] 18:39:01.873 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - nested-realms-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 58ms, init: 0ms
+ {"metadata":{"emulator":{"name":"database"},"message":"18:39:01.873 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - nested-realms-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 58ms, init: 0ms\n"}}
+[debug] [2025-01-20T15:39:01.907Z] 18:39:01.907 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace nested-realms-default-rtdb status Active to Active
+ {"metadata":{"emulator":{"name":"database"},"message":"18:39:01.907 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace nested-realms-default-rtdb status Active to Active\n"}}
+[debug] [2025-01-20T15:39:01.929Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
+[debug] [2025-01-20T15:39:01.929Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────┬────────────────┬────────────────────────────────┐
+│ Emulator │ Host:Port      │ View in Emulator UI            │
+├──────────┼────────────────┼────────────────────────────────┤
+│ Database │ 127.0.0.1:9000 │ http://127.0.0.1:4000/database │
+└──────────┴────────────────┴────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2025-01-20T15:39:05.863Z] 18:39:05.861 [FirebaseWorkerPool-1-3] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace nested-realms, but the emulator is configured for nested-realms-default-rtdb. To 
+opt-out of single project mode add/set the singleProjectMode: false property in 
+the firebase.json emulators config. 
+ {"metadata":{"emulator":{"name":"database"},"message":"18:39:05.861 [FirebaseWorkerPool-1-3] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested \nnamespace nested-realms, but the emulator is configured for nested-realms-default-rtdb. To \nopt-out of single project mode add/set the singleProjectMode: false property in \nthe firebase.json emulators config. \n"}}
+[debug] [2025-01-20T15:39:05.866Z] 18:39:05.866 [NamespaceSystem-akka.actor.default-dispatcher-8] INFO com.firebase.core.namespace.NamespaceActor - nested-realms successfully activated FBKV (SurveyIdle(0)) wait: 1ms, init: 0ms
+ {"metadata":{"emulator":{"name":"database"},"message":"18:39:05.866 [NamespaceSystem-akka.actor.default-dispatcher-8] INFO com.firebase.core.namespace.NamespaceActor - nested-realms successfully activated FBKV (SurveyIdle(0)) wait: 1ms, init: 0ms\n"}}
