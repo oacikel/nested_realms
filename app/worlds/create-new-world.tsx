@@ -1,7 +1,10 @@
 import EntityCreationForm from '@/components/forms/EntityCreationForm'
 import TinyEntityList from '@/components/lists/tinyEntityList'
+import { paths } from '@/constants/pathNames'
+import { navigateToHome } from '@/redux/slices/navigationSlice'
 import { requestAddWorld } from '@/redux/slices/worldSlice'
 import { AddWorldPayload, EntityRequest, WorldRequest } from '@/types/types'
+import { router } from 'expo-router'
 import React, { useState } from 'react'
 import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
@@ -37,6 +40,8 @@ export default function CreateNewWorld() {
       entityRequests: childEntities,
     }
     dispatch(requestAddWorld(payload))
+    dispatch(navigateToHome())
+    router.push(paths.home)
   }
 
   return (
@@ -54,25 +59,24 @@ export default function CreateNewWorld() {
         onChangeText={setDescription}
         style={{ borderWidth: 1, marginBottom: 10, padding: 8 }}
       />
-      <>
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'blue',
-            padding: 10,
-            marginBottom: 10,
-            alignItems: 'center',
-          }}
-          onPress={() => setShowChildForm(true)}
-        >
-          <Text style={{ color: 'white' }}>Add a Child Entity</Text>
-        </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'blue',
+          padding: 10,
+          marginBottom: 10,
+          alignItems: 'center',
+        }}
+        onPress={() => setShowChildForm(true)}
+      >
+        <Text style={{ color: 'white' }}>Add a Child Entity</Text>
+      </TouchableOpacity>
 
-        {showChildForm && (
-          <EntityCreationForm onCreateEntityPress={handleAddChildEntity} />
-        )}
+      {showChildForm && (
+        <EntityCreationForm onCreateEntityPress={handleAddChildEntity} />
+      )}
 
-        <TinyEntityList entities={childEntities} />
-      </>
+      <TinyEntityList entities={childEntities} />
+
       {error && <Text>{error}</Text>}
       <Button title="Create World" onPress={handleSubmit} />
     </View>

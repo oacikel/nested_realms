@@ -10,9 +10,14 @@ Data Structure is as follows:
 
 note: check the types/types.tsx file for the World and Entity types
 */
-const WORLDS_PATH = 'games'
+const WORLDS_PATH = 'worlds'
+const ENTITIES_PATH = 'entities'
 
 const WorldService = {
+  async getExistingWorlds(): Promise<World[]> {
+    const worlds = await FirebaseService.getCollection(WORLDS_PATH)
+    return worlds
+  },
   async getWorld(worldId: string) {
     return FirebaseService.getDocument(`${WORLDS_PATH}/${worldId}`)
   },
@@ -21,15 +26,12 @@ const WorldService = {
     worldId: string,
     data: Partial<World>,
   ): Promise<string | null> {
-    return FirebaseService.updateDocument(
-      `${WORLDS_PATH}/${worldId}/worldData`,
-      data,
-    )
+    return FirebaseService.updateDocument(`${WORLDS_PATH}/${worldId}`, data)
   },
 
   async createWorld(worldData: WorldRequest): Promise<string | null> {
     const worldId = await FirebaseService.setDocument(`${WORLDS_PATH}/`, {
-      worldData,
+      ...worldData,
     })
     return worldId
   },
@@ -38,7 +40,7 @@ const WorldService = {
     worldId: string,
     entities: EntityRequest[],
   ): Promise<string[]> {
-    const path = `${WORLDS_PATH}/${worldId}/entities/`
+    const path = `${ENTITIES_PATH}/${worldId}/`
 
     const entityPromises = entities.map(async (entity) => {
       const entityId = await FirebaseService.setDocument(path, entity)
