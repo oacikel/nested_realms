@@ -1,4 +1,4 @@
-import { get, set, update, remove } from 'firebase/database'
+import { get, update, remove, push } from 'firebase/database'
 import { db, ref } from 'services/firebase/firebaseConfig'
 
 export const FirebaseService = {
@@ -15,10 +15,11 @@ export const FirebaseService = {
    * Writes or updates a document in Realtime Database.
    * @param path - The database path where the data should be stored.
    * @param data - The data to store.
+   * @returns The key of the newly created data.
    */
-  async setDocument(path: string, data: any) {
+  async setDocument(path: string, data: unknown): Promise<string | null> {
     const docRef = ref(db, path)
-    await set(docRef, data)
+    return await push(docRef, data).key
   },
 
   /**
@@ -26,9 +27,10 @@ export const FirebaseService = {
    * @param path - The database path of the document to update.
    * @param data - An object containing only the fields to update.
    */
-  async updateDocument(path: string, data: any) {
+  async updateDocument(path: string, data: object): Promise<string | null> {
     const docRef = ref(db, path)
     await update(docRef, data)
+    return docRef.key
   },
 
   /**
