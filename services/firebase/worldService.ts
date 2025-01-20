@@ -40,23 +40,17 @@ const WorldService = {
   ): Promise<string[]> {
     const path = `${WORLDS_PATH}/${worldId}/entities/`
 
-    // Use map() to create an array of promises
     const entityPromises = entities.map(async (entity) => {
       const entityId = await FirebaseService.setDocument(path, entity)
       if (entityId) {
-        console.log('Entity created:', entityId)
         return entityId
       }
-      return null // If creation fails, return null
+      return null
     })
 
-    // Wait for all promises to resolve
     const entityIds = (await Promise.all(entityPromises)).filter(
       (id): id is string => id !== null,
-    ) // Remove null values
-
-    console.log('Created entities:', entityIds)
-    console.log('JSON format is:', JSON.stringify(entityIds))
+    )
 
     return entityIds
   },
