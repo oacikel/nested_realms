@@ -3,10 +3,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type WorldState = {
   worlds: World[]
+  selectedWorld: World | null
 }
 
 const initialState: WorldState = {
   worlds: [],
+  selectedWorld: null,
 }
 
 const worldSlice = createSlice({
@@ -40,6 +42,9 @@ const worldSlice = createSlice({
         Object.assign(world, action.payload)
       }
     },
+    selectWorld: (state, action: PayloadAction<World>) => {
+      state.selectedWorld = action.payload
+    },
   },
 })
 
@@ -50,5 +55,6 @@ export const {
   addWorlds,
   requestAddEntities,
   updateWorld,
+  selectWorld,
 } = worldSlice.actions
 export default worldSlice.reducer

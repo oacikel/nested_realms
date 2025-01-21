@@ -10,8 +10,8 @@ import {
 import { PayloadAction } from '@reduxjs/toolkit'
 import {
   AddEntitiesPayload,
-  AddWorldPayload as AddWorldRequestPayload,
-  EntityIdNamePair,
+  AddWorldPayload,
+  EntityLite,
   World,
 } from '@/types/types'
 import WorldService from '@/services/firebase/worldService'
@@ -29,7 +29,7 @@ function* handleRequestExistingWorlds(): Generator<unknown, void, unknown> {
 }
 
 function* handleRequestAddWorld(
-  action: PayloadAction<AddWorldRequestPayload>,
+  action: PayloadAction<AddWorldPayload>,
 ): Generator<unknown, void, unknown> {
   try {
     const worldRequest = action.payload.worldRequest
@@ -52,19 +52,20 @@ function* handleRequestAddEntities(
     const worldId = action.payload.worldId
     const entityRequest = action.payload.entityRequests
 
-    const entityIds: EntityIdNamePair[] = (yield call(
+    const entityIds: EntityLite[] = (yield call(
       WorldService.createEntities,
       worldId as string,
       entityRequest,
-    )) as EntityIdNamePair[]
-
-    yield call(WorldService.updateWorld, worldId, { entityIds })
-
+    )) as EntityLite[]
+    const topLevelEntities = entityIds.filter((entity) => entity.isTopLevel)
     const newWorld: Partial<World> = {
       id: worldId as string,
-      entityIds: (entityIds as EntityIdNamePair[]) || null,
+      entityIds: (entityIds as EntityLite[]) || null,
     }
-
+    if (topLevelEntities.length > 0) {
+      newWorld.topLevelEntities = topLevelEntities
+    }
+    yield call(WorldService.updateWorld, worldId, newWorld)
     yield put(updateWorld(newWorld))
   } catch (error) {
     console.log('Error adding entities:', error)

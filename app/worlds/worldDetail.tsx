@@ -1,12 +1,17 @@
 // /app/worlds/[worldId].tsx
 import { useEffect, useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
-import { useSelector } from 'react-redux'
+import { router, useLocalSearchParams } from 'expo-router'
+import { useDispatch, useSelector } from 'react-redux'
 import { getWorldById } from '@/redux/selectors/worldSelectors'
 import { RootState } from '@/redux/store'
+import { Button, Text, View } from 'react-native'
+import { paths } from '@/constants/pathNames'
+import { EntityLite } from '@/types/types'
+import { setEntityLiteOfInterest } from '@/redux/slices/entitiesSlice'
 
 const WorldDetail = () => {
   const { worldId } = useLocalSearchParams()
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -16,7 +21,6 @@ const WorldDetail = () => {
   )
 
   useEffect(() => {
-    console.log('World:', worldId)
     if (!worldId) return
 
     if (!world) {
@@ -40,22 +44,36 @@ const WorldDetail = () => {
     return <div>World not found.</div>
   }
 
+  const handleEntityButtonPress = (entityLite: EntityLite) => {
+    dispatch(setEntityLiteOfInterest(entityLite))
+    router.push(paths.entityDetail)
+  }
   return (
-    <div>
-      <h1>{world.name}</h1>
-      <p>{world.description}</p>
-      <p>Created At: {new Date(world.createdAt).toLocaleDateString()}</p>
-      <h3>Entities:</h3>
+    <View style={{ padding: 16 }}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{world.name}</Text>
+      <Text>{world.description}</Text>
+      <Text style={{ marginVertical: 8 }}>
+        Created At: {new Date(world.createdAt).toLocaleDateString()}
+      </Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Entities:</Text>
       {world.entityIds && world.entityIds.length > 0 ? (
-        <ul>
-          {world.entityIds.map((idNamePair) => (
-            <li key={idNamePair.id}>{idNamePair.name}</li>
+        <View>
+          {world.entityIds.map((entity) => (
+            <View key={entity.id} style={{ marginBottom: 10 }}>
+              <Text>{entity.name}</Text>
+              <Button
+                title="Enter Entity"
+                onPress={() => {
+                  handleEntityButtonPress(entity)
+                }}
+              />
+            </View>
           ))}
-        </ul>
+        </View>
       ) : (
-        <p>No entities found for this world.</p>
+        <Text>No entities found for this world.</Text>
       )}
-    </div>
+    </View>
   )
 }
 

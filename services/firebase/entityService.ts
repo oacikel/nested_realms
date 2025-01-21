@@ -1,10 +1,15 @@
+import { Entity } from '@/types/types'
 import { FirebaseService } from './firebaseService'
 
 const ENTITIES_PATH = 'entities'
 
 export const EntityService = {
-  async getEntity(entityId: string) {
-    return FirebaseService.getDocument(`${ENTITIES_PATH}/${entityId}`)
+  async getEntity(worldId: string, entityId: string): Promise<Entity | null> {
+    const entity = await FirebaseService.getDocument(
+      `${ENTITIES_PATH}/${worldId}/${entityId}`,
+    )
+    entity.id = entityId
+    return entity
   },
 
   async getEntitiesByParent(parentEntityId: string) {
@@ -12,7 +17,10 @@ export const EntityService = {
     return entities.filter((entity) => entity.parentEntityId === parentEntityId)
   },
 
-  async updateEntity(entityId: string, data: any) {
-    return FirebaseService.updateDocument(`${ENTITIES_PATH}/${entityId}`, data)
+  async updateEntity(worldId: string, entityId: string, data: Partial<Entity>) {
+    return FirebaseService.updateDocument(
+      `${ENTITIES_PATH}/${worldId}/${entityId}`,
+      data,
+    )
   },
 }

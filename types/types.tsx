@@ -1,20 +1,23 @@
-export type EntityIdNamePair = {
+export type EntityLite = {
   id: string
   name: string
+  isTopLevel: boolean
 }
 export type World = {
   id: string
   name: string
   description: string
   createdAt: Date
-  entityIds: EntityIdNamePair[] | null
+  entityIds: EntityLite[] | null
+  topLevelEntities: EntityLite[] | null
 }
 
 export type WorldRequest = {
   name: string
   description: string
   createdAt: Date
-  entityIds?: EntityIdNamePair[]
+  entityIds?: EntityLite[] | null
+  topLevelEntities?: EntityLite[] | null
 }
 
 export type Entity = {
@@ -22,6 +25,7 @@ export type Entity = {
   name: string
   description: string
   createdAt: Date
+  isTopLevel: boolean
   parentId?: string
   childrenIds?: string[]
   neighborIds?: string[]
@@ -31,6 +35,7 @@ export type EntityRequest = {
   name: string
   description: string
   createdAt: Date
+  isTopLevel: boolean
   parentId?: string
   childrenIds?: string[]
   neighborIds?: string[]

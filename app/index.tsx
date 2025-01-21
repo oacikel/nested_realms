@@ -5,8 +5,9 @@ import { View, Button, Text } from 'react-native'
 import { navigateToCreateNewWorld } from '@/redux/slices/navigationSlice'
 import { paths } from '@/constants/pathNames'
 import { useEffect } from 'react'
-import { requestExistingWorlds } from '@/redux/slices/worldSlice'
+import { requestExistingWorlds, selectWorld } from '@/redux/slices/worldSlice'
 import { getAllWorlds } from '@/redux/selectors/worldSelectors'
+import { World } from '@/types/types'
 
 export default function HomePage() {
   const dispatch = useDispatch()
@@ -22,6 +23,11 @@ export default function HomePage() {
     router.push(paths.createWorld)
   }
 
+  const handleSelectWorldClick = (world: World) => {
+    dispatch(selectWorld(world))
+    router.push(`${paths.world}?worldId=${world.id}`)
+  }
+
   return (
     <View>
       <Text>Home Page</Text>
@@ -34,7 +40,7 @@ export default function HomePage() {
           <Button
             title="Enter World"
             onPress={() => {
-              router.push(`${paths.world}?worldId=${world.id}`)
+              handleSelectWorldClick(world)
             }}
           />
         </View>
