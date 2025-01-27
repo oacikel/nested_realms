@@ -1,13 +1,15 @@
 // app/index.tsx
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'expo-router'
-import { View, Button, Text, FlatList } from 'react-native'
+import { Button, Text } from 'react-native'
 import { navigateToCreateNewWorld } from '@/redux/slices/navigationSlice'
 import { paths } from '@/constants/pathNames'
 import { useEffect } from 'react'
 import { requestExistingWorlds, selectWorld } from '@/redux/slices/worldSlice'
 import { getAllWorlds } from '@/redux/selectors/worldSelectors'
 import { World } from '@/types/types'
+import WorldList from '@/components/lists/worldList'
+import { ContainerColumn } from '@/assets/styles/globalStyles'
 
 export default function HomePage() {
   const dispatch = useDispatch()
@@ -29,15 +31,7 @@ export default function HomePage() {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        padding: 16,
-        backgroundColor: '#f8f9fa',
-      }}
-    >
+    <ContainerColumn>
       <Text
         style={{
           fontSize: 28,
@@ -58,58 +52,10 @@ export default function HomePage() {
       <Text style={{ fontSize: 18, color: '#555', marginTop: 16 }}>
         ...or start discovering an existing world!
       </Text>
-
-      <FlatList
-        data={worlds}
-        keyExtractor={(world: World) => world.id.toString()}
-        contentContainerStyle={{
-          marginTop: 24,
-          width: '100%',
-          alignItems: 'center',
-        }}
-        renderItem={({ item: world }) => (
-          <View
-            style={{
-              width: '85%',
-              padding: 16,
-              marginBottom: 16,
-              backgroundColor: '#fff',
-              borderRadius: 12,
-              shadowColor: '#000',
-              shadowOpacity: 0.1,
-              shadowRadius: 4,
-              elevation: 3,
-              alignItems: 'center',
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 24,
-                fontWeight: 'bold',
-                color: '#333',
-                marginBottom: 4,
-              }}
-            >
-              🌌 {world.name}
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                color: '#777',
-                textAlign: 'center',
-                marginBottom: 8,
-              }}
-            >
-              {world.description}
-            </Text>
-            <Button
-              title="🚀 Discover World"
-              color="#007bff"
-              onPress={() => handleSelectWorldClick(world)}
-            />
-          </View>
-        )}
+      <WorldList
+        worlds={worlds}
+        handleSelectWorldClick={handleSelectWorldClick}
       />
-    </View>
+    </ContainerColumn>
   )
 }
