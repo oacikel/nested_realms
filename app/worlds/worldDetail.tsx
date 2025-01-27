@@ -49,29 +49,67 @@ const WorldDetail = () => {
     router.push(paths.entityDetail)
   }
   return (
-    <View style={{ padding: 16 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{world.name}</Text>
-      <Text>{world.description}</Text>
-      <Text style={{ marginVertical: 8 }}>
-        Created At: {new Date(world.createdAt).toLocaleDateString()}
+    <View style={{ padding: 16, backgroundColor: '#f8f9fa', borderRadius: 8 }}>
+      <Text
+        style={{
+          fontSize: 24,
+          fontWeight: 'bold',
+          marginBottom: 8,
+          color: '#333',
+        }}
+      >
+        🌍 {world.name}
       </Text>
-      <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Entities:</Text>
+      <Text style={{ fontSize: 16, color: '#555', marginBottom: 8 }}>
+        {world.description}
+      </Text>
+      <Text style={{ fontSize: 14, color: '#777', marginBottom: 16 }}>
+        📅 Created At: {new Date(world.createdAt).toLocaleDateString()}
+      </Text>
+
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          marginBottom: 8,
+          color: '#333',
+        }}
+      >
+        🏛️ Entities:
+      </Text>
+
       {world.entityIds && world.entityIds.length > 0 ? (
-        <View>
+        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
           {world.entityIds.map((entity) => (
-            <View key={entity.id} style={{ marginBottom: 10 }}>
-              <Text>{entity.name}</Text>
+            <View
+              key={entity.id}
+              style={{
+                padding: 12,
+                backgroundColor: '#fff',
+                borderRadius: 8,
+                marginBottom: 12,
+                shadowColor: '#000',
+                shadowOpacity: 0.1,
+                shadowRadius: 4,
+                elevation: 2,
+                width: '100%',
+              }}
+            >
+              <Text style={{ fontSize: 16, fontWeight: '600', color: '#333' }}>
+                🏗️ {entity.name}
+              </Text>
               <Button
-                title="Enter Entity"
-                onPress={() => {
-                  handleEntityButtonPress(entity)
-                }}
+                title="🔍 Enter Entity"
+                color="#007bff99"
+                onPress={() => handleEntityButtonPress(entity)}
               />
             </View>
           ))}
         </View>
       ) : (
-        <Text>No entities found for this world.</Text>
+        <Text style={{ fontSize: 16, color: '#777' }}>
+          ⚠️ No entities found for this world.
+        </Text>
       )}
     </View>
   )

@@ -1,4 +1,4 @@
-import { Entity, EntityLite } from '@/types/types'
+import { Entity, EntityLite, EntityRequest } from '@/types/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type EntitiesState = {
@@ -36,6 +36,12 @@ const entitiesSlice = createSlice({
     requestChildrenEntities: (_state) => {
       // No state change needed, this action is handled by a saga
     },
+    requestCreateChildEntity: (
+      _state,
+      _action: PayloadAction<EntityRequest>,
+    ) => {
+      // No state change needed, this action is handled by a saga
+    },
     setFocusedEntity: (state, action: PayloadAction<Entity | null>) => {
       state.focused = action.payload
     },
@@ -47,6 +53,11 @@ const entitiesSlice = createSlice({
     },
     setChildrenEntities: (state, action: PayloadAction<Entity[] | null>) => {
       state.children = action.payload
+    },
+    addChildEntity: (state, action: PayloadAction<Entity>) => {
+      state.children = state.children
+        ? [...state.children, action.payload]
+        : [action.payload]
     },
   },
 })
@@ -61,5 +72,7 @@ export const {
   setParentEntity,
   setNeighborEntities,
   setChildrenEntities,
+  requestCreateChildEntity,
+  addChildEntity,
 } = entitiesSlice.actions
 export default entitiesSlice.reducer

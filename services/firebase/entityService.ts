@@ -1,4 +1,4 @@
-import { Entity } from '@/types/types'
+import { Entity, EntityRequest } from '@/types/types'
 import { FirebaseService } from './firebaseService'
 
 const ENTITIES_PATH = 'entities'
@@ -21,6 +21,13 @@ export const EntityService = {
     return FirebaseService.updateDocument(
       `${ENTITIES_PATH}/${worldId}/${entityId}`,
       data,
+    )
+  },
+
+  async createEntity(entityRequest: EntityRequest, worldId: string) {
+    return FirebaseService.setDocument(
+      `${ENTITIES_PATH}/${worldId}`,
+      entityRequest,
     )
   },
 }
