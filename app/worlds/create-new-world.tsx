@@ -31,7 +31,6 @@ export default function CreateNewWorld() {
     const newWorld: WorldRequest = {
       name,
       description,
-      entityIds: [],
       createdAt: new Date(),
     }
 
@@ -72,7 +71,10 @@ export default function CreateNewWorld() {
       </TouchableOpacity>
 
       {showChildForm && (
-        <EntityCreationForm onCreateEntityPress={handleAddChildEntity} />
+        <EntityCreationForm
+          onCreateEntityPress={handleAddChildEntity}
+          isTopLevel={true}
+        />
       )}
 
       <TinyEntityList entities={childEntities} />

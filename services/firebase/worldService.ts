@@ -1,15 +1,6 @@
-import { EntityRequest, World, WorldRequest } from '@/types/types'
+import { EntityLite, EntityRequest, World, WorldRequest } from '@/types/types'
 import { FirebaseService } from './firebaseService'
 
-/*
-Data Structure is as follows:
-|--games/
-|----[World Data]
-|----entities/
-|------[entityData[]]
-
-note: check the types/types.tsx file for the World and Entity types
-*/
 const WORLDS_PATH = 'worlds'
 const ENTITIES_PATH = 'entities'
 
@@ -39,22 +30,25 @@ const WorldService = {
   async createEntities(
     worldId: string,
     entities: EntityRequest[],
-  ): Promise<string[]> {
+  ): Promise<EntityLite[]> {
     const path = `${ENTITIES_PATH}/${worldId}/`
 
     const entityPromises = entities.map(async (entity) => {
       const entityId = await FirebaseService.setDocument(path, entity)
       if (entityId) {
-        return entityId
+        return {
+          id: entityId,
+          name: entity.name,
+          isTopLevel: entity.isTopLevel,
+        } as EntityLite
       }
       return null
     })
 
-    const entityIds = (await Promise.all(entityPromises)).filter(
-      (id): id is string => id !== null,
+    const entityIdNamePairs = (await Promise.all(entityPromises)).filter(
+      (entity): entity is EntityLite => entity !== null,
     )
-
-    return entityIds
+    return entityIdNamePairs
   },
 }
 
