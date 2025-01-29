@@ -1,7 +1,7 @@
 import {
   ListButtonsContainer,
   PrimaryButton,
-  WorldContainer,
+  WorldItemContainer,
   WorldDescription,
   WorldName,
 } from '@/assets/styles/globalStyles'
@@ -19,7 +19,7 @@ const WorldItem: React.FC<WorldItemProps> = ({
   handleSelectWorldClick,
 }) => {
   return (
-    <WorldContainer>
+    <WorldItemContainer>
       <WorldName>{world.name}</WorldName>
       <WorldDescription>{world.description}</WorldDescription>
       <ListButtonsContainer>
@@ -28,7 +28,7 @@ const WorldItem: React.FC<WorldItemProps> = ({
           <Text>Discover World</Text>
         </PrimaryButton>
       </ListButtonsContainer>
-    </WorldContainer>
+    </WorldItemContainer>
   )
 }
 

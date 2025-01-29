@@ -8,6 +8,7 @@ const dimensions = {
   textXLarge: '24px',
   textXXLarge: '32px',
   borderRadius: '8px',
+  borderSize: '2px',
 }
 
 export default dimensions

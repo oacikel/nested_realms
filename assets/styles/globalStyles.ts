@@ -10,6 +10,7 @@ export const PrimaryButton = styled.button`
   flex-direction: column;
   align-items: center;
   border-radius: ${dimensions.borderRadius};
+  background-color: ${colors.primary};
 
   & > * {
     justify-content: center;
@@ -19,9 +20,29 @@ export const PrimaryButton = styled.button`
     font-family: 'NotoSansMono';
   }
 `
+export const HorizontalDivider = styled.div`
+  width: 100%;
+  height: ${dimensions.borderSize};
+  background-color: ${colors.textDark};
+  margin: 0;
+`
+export const ListButtonsContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: ${dimensions.marginSmall};
+`
+
+export const StyledInput = styled.textarea`
+  font-size: ${dimensions.textMedium};
+  font-family: 'NotoSansMono';
+  border-radius: ${dimensions.borderRadius};
+  border: ${dimensions.borderSize} solid ${colors.textDark};
+  padding: ${dimensions.marginSmall};
+  resize: vertical;
+`
 
 export const ContainerColumn = styled.div`
-  width: 100%;
   font-family: 'NotoSansMono';
   display: flex;
   flex-direction: column;
@@ -36,14 +57,16 @@ export const ContainerColumn = styled.div`
 // -------- Common Components End -------- //
 
 // -------- Lists Start -------- //
-// WorldList.tsx
-export const WorldContainer = styled.div`
-  margin: ${dimensions.marginMedium};
-  border: 3px solid ${colors.textDark};
-  border-radius: ${dimensions.borderRadius};
+const BaseItemContianer = styled.div`
   display: flex;
   flex-direction: column;
+`
+// WorldList.tsx
+export const WorldItemContainer = styled(BaseItemContianer)`
+  border: 3px solid ${colors.textDark};
+  border-radius: ${dimensions.borderRadius};
   padding-bottom: ${dimensions.marginSmall};
+  margin: ${dimensions.marginMedium};
 `
 
 export const WorldName = styled.div`
@@ -63,12 +86,31 @@ export const WorldDescription = styled.text`
   text-align: start;
 `
 
-export const ListButtonsContainer = styled.div`
+// tinyEntityList.tsx
+export const TinyEntityContainer = styled(BaseItemContianer)`
+  height: auto;
+  width: auto;
   display: flex;
-  width: 100%;
-  justify-content: center;
-  gap: ${dimensions.marginSmall};
-  flex-direction: row;
+  flex-direction: column;
+  border: 2px solid ${colors.textDark};
+  border-radius: ${dimensions.borderRadius};
+  font-family: 'NotoSansMono';
+  padding: ${dimensions.marginSmall};
+  & > * {
+    overflow: auto;
+  }
 `
 
+export const TintEntityName = styled.div`
+  font-size: ${dimensions.textLarge};
+  font-weight: bold;
+`
+
+export const TinyEntityDescription = styled.text`
+  font-size: ${dimensions.textMedium};
+  text-align: start;
+`
 // -------- Lists End -------- //
+
+// -------- Forms Start -------- //
+// EntityCreationForm.tsx

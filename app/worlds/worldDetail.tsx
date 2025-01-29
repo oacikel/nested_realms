@@ -4,10 +4,11 @@ import { router, useLocalSearchParams } from 'expo-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getWorldById } from '@/redux/selectors/worldSelectors'
 import { RootState } from '@/redux/store'
-import { Button, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { paths } from '@/constants/pathNames'
-import { EntityLite } from '@/types/types'
+import { Entity, EntityLite, EntityRequest } from '@/types/types'
 import { setEntityLiteOfInterest } from '@/redux/slices/entitiesSlice'
+import TinyEntityList from '@/components/lists/tinyEntityList'
 
 const WorldDetail = () => {
   const { worldId } = useLocalSearchParams()
@@ -44,9 +45,15 @@ const WorldDetail = () => {
     return <div>World not found.</div>
   }
 
-  const handleEntityButtonPress = (entityLite: EntityLite) => {
-    dispatch(setEntityLiteOfInterest(entityLite))
-    router.push(paths.entityDetail)
+  const handleEntityButtonPress = (
+    entity: EntityLite | EntityRequest | Entity,
+  ) => {
+    if ('id' in entity) {
+      dispatch(setEntityLiteOfInterest(entity))
+      router.push(paths.entityDetail)
+    } else {
+      console.error('Invalid entity type')
+    }
   }
   return (
     <View style={{ padding: 16, backgroundColor: '#f8f9fa', borderRadius: 8 }}>
@@ -80,31 +87,10 @@ const WorldDetail = () => {
 
       {world.entityIds && world.entityIds.length > 0 ? (
         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-          {world.entityIds.map((entity) => (
-            <View
-              key={entity.id}
-              style={{
-                padding: 12,
-                backgroundColor: '#fff',
-                borderRadius: 8,
-                marginBottom: 12,
-                shadowColor: '#000',
-                shadowOpacity: 0.1,
-                shadowRadius: 4,
-                elevation: 2,
-                width: '100%',
-              }}
-            >
-              <Text style={{ fontSize: 16, fontWeight: '600', color: '#333' }}>
-                🏗️ {entity.name}
-              </Text>
-              <Button
-                title="🔍 Enter Entity"
-                color="#007bff99"
-                onPress={() => handleEntityButtonPress(entity)}
-              />
-            </View>
-          ))}
+          <TinyEntityList
+            entities={world.entityIds as Entity[]}
+            onEntityPress={handleEntityButtonPress}
+          />
         </View>
       ) : (
         <Text style={{ fontSize: 16, color: '#777' }}>

@@ -1,3 +1,11 @@
+import dimensions from '@/assets/dimensions'
+import {
+  ContainerColumn,
+  HorizontalDivider,
+  ListButtonsContainer,
+  PrimaryButton,
+  StyledInput,
+} from '@/assets/styles/globalStyles'
 import EntityCreationForm from '@/components/forms/EntityCreationForm'
 import TinyEntityList from '@/components/lists/tinyEntityList'
 import { paths } from '@/constants/pathNames'
@@ -5,8 +13,8 @@ import { navigateToHome } from '@/redux/slices/navigationSlice'
 import { requestAddWorld } from '@/redux/slices/worldSlice'
 import { AddWorldPayload, EntityRequest, WorldRequest } from '@/types/types'
 import { router } from 'expo-router'
-import React, { useState } from 'react'
-import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
+import React, { ChangeEvent, useState } from 'react'
+import { Text } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 export default function CreateNewWorld() {
@@ -17,6 +25,14 @@ export default function CreateNewWorld() {
   const [error, setError] = useState<string | null>(null)
 
   const dispatch = useDispatch()
+
+  const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setName(event.target.value)
+  }
+
+  const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(event.target.value)
+  }
 
   const handleAddChildEntity = (childEntity: EntityRequest) => {
     setChildEntities([...childEntities, childEntity])
@@ -44,43 +60,48 @@ export default function CreateNewWorld() {
   }
 
   return (
-    <View>
-      <Text>Create a New World</Text>
-      <TextInput
-        placeholder="Enter world name"
+    <ContainerColumn
+      style={{ padding: dimensions.marginMedium, gap: dimensions.marginMedium }}
+    >
+      <StyledInput
+        placeholder="Give a name to your world"
         value={name || ''}
-        onChangeText={setName}
-        style={{ borderWidth: 1, marginBottom: 10, padding: 8 }}
+        onChange={handleNameChange}
       />
-      <TextInput
-        placeholder="Enter world description"
+      <StyledInput
+        style={{ height: 130 }}
+        placeholder="Briefly describe your world"
         value={description || ''}
-        onChangeText={setDescription}
-        style={{ borderWidth: 1, marginBottom: 10, padding: 8 }}
+        onChange={handleDescriptionChange}
       />
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'blue',
-          padding: 10,
-          marginBottom: 10,
-          alignItems: 'center',
-        }}
-        onPress={() => setShowChildForm(true)}
-      >
-        <Text style={{ color: 'white' }}>Add a Child Entity</Text>
-      </TouchableOpacity>
-
       {showChildForm && (
         <EntityCreationForm
           onCreateEntityPress={handleAddChildEntity}
           isTopLevel={true}
         />
       )}
-
-      <TinyEntityList entities={childEntities} />
+      <ListButtonsContainer>
+        <TinyEntityList
+          entities={childEntities}
+          firstView={
+            !showChildForm && (
+              <PrimaryButton
+                style={{ height: '100%' }}
+                onClick={() => setShowChildForm(true)}
+              >
+                <Text>+</Text>
+                <Text>Add Child</Text>
+              </PrimaryButton>
+            )
+          }
+        />
+      </ListButtonsContainer>
 
       {error && <Text>{error}</Text>}
-      <Button title="Create World" onPress={handleSubmit} />
-    </View>
+      <HorizontalDivider />
+      <PrimaryButton onClick={handleSubmit}>
+        <Text>Create World</Text>
+      </PrimaryButton>
+    </ContainerColumn>
   )
 }
