@@ -3,7 +3,10 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native'
-import { useFonts } from 'expo-font'
+import {
+  useFonts,
+  NotoSansMono_400Regular,
+} from '@expo-google-fonts/noto-sans-mono'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
@@ -22,6 +25,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme()
   const [loaded] = useFonts({
     SpaceMono,
+    NotoSansMono: NotoSansMono_400Regular,
   })
 
   useEffect(() => {

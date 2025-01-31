@@ -1,6 +1,13 @@
+import {
+  ContainerColumn,
+  HorizontalDivider,
+  ListButtonsContainer,
+  PrimaryButton,
+  StyledInput,
+} from '@/assets/styles/globalStyles'
 import { EntityRequest } from '@/types/types'
 import React, { useState } from 'react'
-import { View, TextInput, Button, Text } from 'react-native'
+import { Text } from 'react-native'
 
 interface EntityCreationParams {
   onCreateEntityPress: (entity: EntityRequest) => void
@@ -22,6 +29,18 @@ const EntityCreationForm: React.FC<EntityCreationParams> = ({
   const [error, setError] = useState<string | null>(null)
 
   const handleAddChildEntity = () => {
+    // For dev purposes we'll create a random entity at each click
+    /*
+    const randomEntity: EntityRequest = {
+      name: 'Random Entity ' + Math.floor(Math.random() * 100),
+      description: 'Random Description ' + Math.floor(Math.random() * 100),
+      createdAt: new Date(),
+      isTopLevel: isTopLevel,
+    }
+    onCreateEntityPress(randomEntity)
+    return
+    */
+
     if (!name || !description) {
       setError('Please enter a name and description')
       return
@@ -36,22 +55,27 @@ const EntityCreationForm: React.FC<EntityCreationParams> = ({
   }
 
   return (
-    <View style={{ marginBottom: 20 }}>
-      <TextInput
+    <ContainerColumn style={{ gap: 16, margin: 16 }}>
+      <HorizontalDivider />
+      <StyledInput
         placeholder="Enter Entity Name"
         value={name || ''}
-        onChangeText={setName}
-        style={{ borderWidth: 1, marginBottom: 10, padding: 8 }}
+        onChange={(e) => setName(e.target.value)}
       />
-      <TextInput
+      <StyledInput
         placeholder="Enter entity description"
         value={description || ''}
-        onChangeText={setDescription}
-        style={{ borderWidth: 1, marginBottom: 10, padding: 8 }}
+        onChange={(e) => setDescription(e.target.value)}
       />
+
       {error && <Text>{error}</Text>}
-      <Button title="Add Entity" onPress={handleAddChildEntity} />
-    </View>
+      <ListButtonsContainer>
+        <PrimaryButton onClick={handleAddChildEntity}>
+          <Text>Add Entity</Text>
+        </PrimaryButton>
+      </ListButtonsContainer>
+      <HorizontalDivider />
+    </ContainerColumn>
   )
 }
 

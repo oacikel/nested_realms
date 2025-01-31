@@ -1,34 +1,43 @@
-import { Entity, EntityRequest } from '@/types/types'
 import React from 'react'
-import { ScrollView, View, Text, StyleSheet } from 'react-native'
+import Grid from '@mui/material/Grid2'
+import { Entity, EntityLite, EntityRequest } from '@/types/types'
+import TinyEntityItem from './tinyEntityItem'
+import { Box } from '@mui/system'
 
 interface TinyEntityListProps {
-  entities: Entity[] | EntityRequest[]
+  firstView?: React.ReactNode
+  entities: (Entity | EntityRequest)[]
+  onEntityPress?: (entity: Entity | EntityRequest | EntityLite) => void
 }
 
-const TinyEntityList: React.FC<TinyEntityListProps> = ({ entities }) => {
+const TinyEntityList: React.FC<TinyEntityListProps> = ({
+  firstView,
+  entities,
+  onEntityPress,
+}) => {
+  const data = firstView ? [firstView, ...entities] : entities
   return (
-    <ScrollView horizontal style={styles.scrollView}>
-      {entities.map((entity, index) => (
-        <View key={index} style={styles.entityContainer}>
-          <Text>{entity.name}</Text>
-          <Text>{entity.description}</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={1}>
+        {data.map((item, index) => (
+          <Grid size={{ xs: 'auto', md: 'auto' }}>
+            {index === 0 && firstView ? (
+              firstView
+            ) : (
+              <TinyEntityItem
+                entity={item as Entity | EntityRequest}
+                index={index - 1}
+                onPress={() =>
+                  onEntityPress &&
+                  onEntityPress(item as Entity | EntityRequest | EntityLite)
+                }
+              />
+            )}
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  scrollView: {
-    marginBottom: 20,
-  },
-  entityContainer: {
-    borderWidth: 1,
-    padding: 10,
-    marginRight: 10,
-    alignItems: 'center',
-  },
-})
 
 export default TinyEntityList
