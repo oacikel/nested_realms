@@ -24,15 +24,7 @@ export default function HomePage() {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 16,
-        backgroundColor: '#f8f9fa',
-      }}
-    >
+    <View style={{ height: '100%' }}>
       <WorldList worlds={worlds} />
       <Button title="Create A New World" onPress={handleNewWorldButtonClick} />
     </View>
