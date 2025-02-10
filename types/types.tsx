@@ -41,11 +41,6 @@ export type EntityRequest = {
   neighborIds?: string[]
 }
 
-export interface AddWorldPayload {
-  worldRequest: WorldRequest
-  entityRequests: EntityRequest[]
-}
-
 export interface AddEntitiesPayload {
   worldId: string
   entityRequests: EntityRequest[]

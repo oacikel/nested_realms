@@ -1,4 +1,4 @@
-import { AddEntitiesPayload, AddWorldPayload, World } from '@/types/types'
+import { WorldRequest, World } from '@/types/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type WorldState = {
@@ -18,13 +18,7 @@ const worldSlice = createSlice({
     requestExistingWorlds: (_state) => {
       // No state change needed, this action is handled by a saga
     },
-    requestAddWorld: (_state, _action: PayloadAction<AddWorldPayload>) => {
-      // No state change needed, this action is handled by a saga
-    },
-    requestAddEntities: (
-      _state,
-      _action: PayloadAction<AddEntitiesPayload>,
-    ) => {
+    requestAddWorld: (_state, _action: PayloadAction<WorldRequest>) => {
       // No state change needed, this action is handled by a saga
     },
     addWorld: (state, action: PayloadAction<World>) => {
@@ -53,7 +47,6 @@ export const {
   requestAddWorld,
   addWorld,
   addWorlds,
-  requestAddEntities,
   updateWorld,
   selectWorld,
 } = worldSlice.actions
