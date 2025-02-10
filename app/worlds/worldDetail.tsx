@@ -97,9 +97,9 @@ const WorldDetail = () => {
         🏛️ Entities:
       </Text>
 
-      {world.entityIds && world.entityIds.length > 0 ? (
+      {topLevelEntities && topLevelEntities.length > 0 ? (
         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-          {world.entityIds.map((entity) => (
+          {topLevelEntities.map((entity) => (
             <View
               key={entity.id}
               style={{
