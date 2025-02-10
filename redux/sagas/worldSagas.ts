@@ -2,19 +2,13 @@ import { takeLatest, call, put } from 'redux-saga/effects'
 import {
   addWorld,
   addWorlds,
-  requestAddEntities,
   requestAddWorld,
   requestExistingWorlds,
   updateWorld,
 } from '../slices/worldSlice'
 import { PayloadAction } from '@reduxjs/toolkit'
-import {
-  AddEntitiesPayload,
-  AddWorldPayload,
-  EntityLite,
-  World,
-} from '@/types/types'
 import WorldService from '@/services/firebase/worldService'
+import { World, WorldRequest } from '@/types/types'
 
 function* handleRequestExistingWorlds(): Generator<unknown, void, unknown> {
   try {
@@ -29,51 +23,33 @@ function* handleRequestExistingWorlds(): Generator<unknown, void, unknown> {
 }
 
 function* handleRequestAddWorld(
-  action: PayloadAction<AddWorldPayload>,
+  action: PayloadAction<WorldRequest>,
 ): Generator<unknown, void, unknown> {
   try {
-    const worldRequest = action.payload.worldRequest
-    const entityRequests = action.payload.entityRequests
+    const worldRequest = action.payload
     const worldId: string = (yield call(
       WorldService.createWorld,
       worldRequest,
     )) as string
     yield put(addWorld({ ...worldRequest, id: worldId } as World))
-    yield put(requestAddEntities({ worldId, entityRequests }))
   } catch (error) {
     console.log('Error saving world:', error)
   }
 }
 
-function* handleRequestAddEntities(
-  action: PayloadAction<AddEntitiesPayload>,
+function* handleUpdateWorld(
+  action: PayloadAction<Partial<World>>,
 ): Generator<unknown, void, unknown> {
   try {
-    const worldId = action.payload.worldId
-    const entityRequest = action.payload.entityRequests
-
-    const entityIds: EntityLite[] = (yield call(
-      WorldService.createEntities,
-      worldId as string,
-      entityRequest,
-    )) as EntityLite[]
-    const topLevelEntities = entityIds.filter((entity) => entity.isTopLevel)
-    const newWorld: Partial<World> = {
-      id: worldId as string,
-      entityIds: (entityIds as EntityLite[]) || null,
-    }
-    if (topLevelEntities.length > 0) {
-      newWorld.topLevelEntities = topLevelEntities
-    }
-    yield call(WorldService.updateWorld, worldId, newWorld)
-    yield put(updateWorld(newWorld))
+    const worldId = action.payload.id as string
+    yield call(WorldService.updateWorld, worldId, action.payload)
   } catch (error) {
-    console.log('Error adding entities:', error)
+    console.log('Error updating world:', error)
   }
 }
 
 export function* watchWorldSaga() {
   yield takeLatest(requestExistingWorlds.type, handleRequestExistingWorlds)
   yield takeLatest(requestAddWorld.type, handleRequestAddWorld)
-  yield takeLatest(requestAddEntities.type, handleRequestAddEntities)
+  yield takeLatest(updateWorld.type, handleUpdateWorld)
 }

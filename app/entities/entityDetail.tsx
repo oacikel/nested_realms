@@ -13,8 +13,9 @@ import {
 } from '@/redux/slices/entitiesSlice'
 import { router } from 'expo-router'
 import EntityCreationForm from '@/components/forms/EntityCreationForm'
-import { EntityLite, EntityRequest } from '@/types/types'
+import { Entity, EntityRequest } from '@/types/types'
 import { paths } from '@/constants/pathNames'
+import { convertToEntityLite } from '../utils/entityUtils'
 
 const EntityDetail = () => {
   const dispatch = useDispatch()
@@ -34,8 +35,10 @@ const EntityDetail = () => {
     dispatch(requestCreateChildEntity(entity))
   }
 
-  const pressedEntityDetail = (entity: EntityLite) => {
-    dispatch(setEntityLiteOfInterest(entity))
+  const pressedEntityDetail = (entity: Entity) => {
+    const entityLite = convertToEntityLite(entity)
+
+    dispatch(setEntityLiteOfInterest(entityLite))
     router.push(paths.entityDetail)
   }
 
@@ -97,7 +100,8 @@ const EntityDetail = () => {
         >
           <EntityCreationForm
             onCreateEntityPress={onCreateEntityPress}
-            isTopLevel={false}
+            worldId={focusedEntity.worldId}
+            parentId={focusedEntity.id}
           />
         </View>
       )}

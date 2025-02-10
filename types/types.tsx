@@ -1,7 +1,7 @@
 export type EntityLite = {
   id: string
   name: string
-  isTopLevel: boolean
+  parentId: string | null
 }
 export type World = {
   id: string
@@ -25,25 +25,18 @@ export type Entity = {
   name: string
   description: string
   createdAt: Date
-  isTopLevel: boolean
-  parentId?: string
+  worldId: string
+  parentId: string | null
   childrenIds?: string[]
   neighborIds?: string[]
 }
 
 export type EntityRequest = {
+  worldId: string
   name: string
   description: string
   createdAt: Date
-  isTopLevel: boolean
-  parentId?: string
-  childrenIds?: string[]
-  neighborIds?: string[]
-}
-
-export interface AddWorldPayload {
-  worldRequest: WorldRequest
-  entityRequests: EntityRequest[]
+  parentId: string | null
 }
 
 export interface AddEntitiesPayload {

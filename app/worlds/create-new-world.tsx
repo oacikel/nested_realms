@@ -1,27 +1,18 @@
-import EntityCreationForm from '@/components/forms/EntityCreationForm'
-import TinyEntityList from '@/components/lists/tinyEntityList'
 import { paths } from '@/constants/pathNames'
 import { navigateToHome } from '@/redux/slices/navigationSlice'
 import { requestAddWorld } from '@/redux/slices/worldSlice'
-import { AddWorldPayload, EntityRequest, WorldRequest } from '@/types/types'
+import { WorldRequest } from '@/types/types'
 import { router } from 'expo-router'
 import React, { useState } from 'react'
-import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, Button } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 export default function CreateNewWorld() {
   const [name, setName] = useState<string | null>(null)
   const [description, setDescription] = useState<string | null>(null)
-  const [showChildForm, setShowChildForm] = useState(false)
-  const [childEntities, setChildEntities] = useState<EntityRequest[]>([])
   const [error, setError] = useState<string | null>(null)
 
   const dispatch = useDispatch()
-
-  const handleAddChildEntity = (childEntity: EntityRequest) => {
-    setChildEntities([...childEntities, childEntity])
-    setShowChildForm(false)
-  }
 
   const handleSubmit = () => {
     if (!name || !description) {
@@ -34,11 +25,7 @@ export default function CreateNewWorld() {
       createdAt: new Date(),
     }
 
-    const payload: AddWorldPayload = {
-      worldRequest: newWorld,
-      entityRequests: childEntities,
-    }
-    dispatch(requestAddWorld(payload))
+    dispatch(requestAddWorld(newWorld))
     dispatch(navigateToHome())
     router.push(paths.home)
   }
@@ -58,26 +45,6 @@ export default function CreateNewWorld() {
         onChangeText={setDescription}
         style={{ borderWidth: 1, marginBottom: 10, padding: 8 }}
       />
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'blue',
-          padding: 10,
-          marginBottom: 10,
-          alignItems: 'center',
-        }}
-        onPress={() => setShowChildForm(true)}
-      >
-        <Text style={{ color: 'white' }}>Add a Child Entity</Text>
-      </TouchableOpacity>
-
-      {showChildForm && (
-        <EntityCreationForm
-          onCreateEntityPress={handleAddChildEntity}
-          isTopLevel={true}
-        />
-      )}
-
-      <TinyEntityList entities={childEntities} />
 
       {error && <Text>{error}</Text>}
       <Button title="Create World" onPress={handleSubmit} />
