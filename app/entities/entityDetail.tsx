@@ -9,13 +9,10 @@ import {
 import {
   requestCreateChildEntity,
   requestFocusedEntity,
-  setEntityLiteOfInterest,
 } from '@/redux/slices/entitiesSlice'
-import { router } from 'expo-router'
 import EntityCreationForm from '@/components/forms/EntityCreationForm'
-import { Entity, EntityRequest } from '@/types/types'
-import { paths } from '@/constants/pathNames'
-import { convertToEntityLite } from '../utils/entityUtils'
+import { EntityRequest } from '@/types/types'
+import TinyEntityList from '@/components/lists/tinyEntityList'
 
 const EntityDetail = () => {
   const dispatch = useDispatch()
@@ -33,13 +30,6 @@ const EntityDetail = () => {
     }
     entity.parentId = focusedEntity.id
     dispatch(requestCreateChildEntity(entity))
-  }
-
-  const pressedEntityDetail = (entity: Entity) => {
-    const entityLite = convertToEntityLite(entity)
-
-    dispatch(setEntityLiteOfInterest(entityLite))
-    router.push(paths.entityDetail)
   }
 
   useEffect(() => {
@@ -83,6 +73,9 @@ const EntityDetail = () => {
         Created At: {new Date(focusedEntity.createdAt).toLocaleDateString()}
       </Text>
 
+      <View style={{ marginTop: 24 }}>
+        {childrenEntities && <TinyEntityList entities={childrenEntities} />}
+      </View>
       <Button
         title="➕ Add Child Entity"
         color="#007bff"
@@ -105,54 +98,6 @@ const EntityDetail = () => {
           />
         </View>
       )}
-
-      <View style={{ marginTop: 24 }}>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: 'bold',
-            marginBottom: 8,
-            color: '#333',
-          }}
-        >
-          👶 Children
-        </Text>
-        {childrenEntities?.map((child) => (
-          <View
-            key={child.id}
-            style={{
-              padding: 12,
-              backgroundColor: '#fff',
-              borderRadius: 8,
-              marginBottom: 12,
-              shadowColor: '#000',
-              shadowOpacity: 0.1,
-              shadowRadius: 4,
-              elevation: 2,
-            }}
-          >
-            <Text style={{ fontSize: 16, fontWeight: '600', color: '#333' }}>
-              {child.name}
-            </Text>
-            <Text style={{ fontSize: 14, color: '#555', marginBottom: 8 }}>
-              {child.description}
-            </Text>
-            <Button
-              title="🔍 View"
-              color="#28a745"
-              onPress={() => pressedEntityDetail(child)}
-            />
-          </View>
-        ))}
-      </View>
-
-      <View style={{ marginTop: 24 }}>
-        <Button
-          title="⬅️ Back to World"
-          color="#dc3545"
-          onPress={() => router.back()}
-        />
-      </View>
     </View>
   )
 }
