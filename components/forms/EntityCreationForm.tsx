@@ -3,19 +3,15 @@ import React, { useState } from 'react'
 import { View, TextInput, Button, Text } from 'react-native'
 
 interface EntityCreationParams {
+  worldId: string
   onCreateEntityPress: (entity: EntityRequest) => void
-  isTopLevel: boolean
+  parentId: string | null
 }
 
-/**
- * Form for creating a new entity
- * @param onCreateEntityPress - function to call when the user submits the form
- * @param isTopLevel - This is true if the entity does not have a parent
- */
-
 const EntityCreationForm: React.FC<EntityCreationParams> = ({
+  worldId,
   onCreateEntityPress,
-  isTopLevel,
+  parentId,
 }) => {
   const [name, setName] = useState<string | null>(null)
   const [description, setDescription] = useState<string | null>(null)
@@ -26,13 +22,14 @@ const EntityCreationForm: React.FC<EntityCreationParams> = ({
       setError('Please enter a name and description')
       return
     }
-    const newEntity: EntityRequest = {
+    const entityRequest: EntityRequest = {
+      worldId,
       name: name,
       description: description,
       createdAt: new Date(),
-      isTopLevel: isTopLevel,
+      parentId,
     }
-    onCreateEntityPress(newEntity)
+    onCreateEntityPress(entityRequest)
   }
 
   return (

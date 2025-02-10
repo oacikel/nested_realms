@@ -4,6 +4,7 @@ import {
   addWorlds,
   requestAddWorld,
   requestExistingWorlds,
+  updateWorld,
 } from '../slices/worldSlice'
 import { PayloadAction } from '@reduxjs/toolkit'
 import WorldService from '@/services/firebase/worldService'
@@ -36,7 +37,19 @@ function* handleRequestAddWorld(
   }
 }
 
+function* handleUpdateWorld(
+  action: PayloadAction<Partial<World>>,
+): Generator<unknown, void, unknown> {
+  try {
+    const worldId = action.payload.id as string
+    yield call(WorldService.updateWorld, worldId, action.payload)
+  } catch (error) {
+    console.log('Error updating world:', error)
+  }
+}
+
 export function* watchWorldSaga() {
   yield takeLatest(requestExistingWorlds.type, handleRequestExistingWorlds)
   yield takeLatest(requestAddWorld.type, handleRequestAddWorld)
+  yield takeLatest(updateWorld.type, handleUpdateWorld)
 }

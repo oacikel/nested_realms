@@ -30,5 +30,40 @@ export const getChildrenEntities = createSelector(
 
 export const isFocusedEntityTopLevel = createSelector(
   [getFocusedEntity],
-  (focusedEntity) => focusedEntity?.isTopLevel ?? false,
+  (focusedEntity) => !focusedEntity?.parentId,
 )
+
+export const getEntityById = (id: string) =>
+  createSelector([selectEntitiesState], (entitiesState) => {
+    // Check focused entity
+    if (entitiesState.focused && entitiesState.focused.id === id) {
+      return entitiesState.focused
+    }
+
+    // Check neighbor entities
+    if (entitiesState.neighbor) {
+      const neighborEntity = entitiesState.neighbor.find(
+        (entity) => entity.id === id,
+      )
+      if (neighborEntity) {
+        return neighborEntity
+      }
+    }
+
+    // Check parent entity
+    if (entitiesState.parent && entitiesState.parent.id === id) {
+      return entitiesState.parent
+    }
+
+    // Check children entities
+    if (entitiesState.children) {
+      const childEntity = entitiesState.children.find(
+        (entity) => entity.id === id,
+      )
+      if (childEntity) {
+        return childEntity
+      }
+    }
+
+    throw new Error(`Entity not found for id ${id}`)
+  })

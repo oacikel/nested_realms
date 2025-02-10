@@ -54,7 +54,7 @@ const entitiesSlice = createSlice({
     setChildrenEntities: (state, action: PayloadAction<Entity[] | null>) => {
       state.children = action.payload
     },
-    addChildEntity: (state, action: PayloadAction<Entity>) => {
+    addEntityToStore: (state, action: PayloadAction<Entity>) => {
       state.children = state.children
         ? [...state.children, action.payload]
         : [action.payload]
@@ -73,6 +73,6 @@ export const {
   setNeighborEntities,
   setChildrenEntities,
   requestCreateChildEntity,
-  addChildEntity,
+  addEntityToStore,
 } = entitiesSlice.actions
 export default entitiesSlice.reducer

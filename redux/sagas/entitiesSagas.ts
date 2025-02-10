@@ -1,7 +1,7 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects'
 import { Entity, EntityLite, EntityRequest, World } from '@/types/types'
 import {
-  addChildEntity,
+  addEntityToStore,
   requestChildrenEntities,
   requestCreateChildEntity,
   requestFocusedEntity,
@@ -14,9 +14,14 @@ import {
 } from '../slices/entitiesSlice'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { EntityService } from '@/services/firebase/entityService'
-import { getFocusedEntity, getParentEntity } from '../selectors/entitySelectors'
+import {
+  getEntityById,
+  getFocusedEntity,
+  getParentEntity,
+} from '../selectors/entitySelectors'
 import { waitForState } from '../reduxUtils'
-import { getSelectedWorld } from '../selectors/worldSelectors'
+import { getSelectedWorld, getWorldById } from '../selectors/worldSelectors'
+import { updateWorld } from '../slices/worldSlice'
 
 function* handleRequestFocusedEntity(
   action: PayloadAction<EntityLite>,
@@ -45,7 +50,7 @@ function* handleRequestParentEntity(): Generator<unknown, void, never> {
     const focusedEntity: Entity = yield waitForState(getFocusedEntity)
     const selectedWorld: World = (yield select(getSelectedWorld)) as World
 
-    if (!focusedEntity.isTopLevel) {
+    if (focusedEntity.parentId) {
       const parentEntity: Entity = yield call(
         fetchSingleEntity,
         selectedWorld.id,
@@ -70,7 +75,7 @@ function* handleRequestNeighborEntities(): Generator<unknown, void, unknown> {
     const selectedWorld: World = (yield select(getSelectedWorld)) as World
 
     const focusedEntity: Entity = (yield select(getFocusedEntity)) as Entity
-    const isTopLevel = focusedEntity.isTopLevel
+    const isTopLevel = !focusedEntity.parentId
 
     if (!isTopLevel) {
       const parentEntity: Entity = (yield waitForState(
@@ -131,37 +136,60 @@ function* handleRequestCreateChildEntity(
       action.payload,
       selectedWorld.id,
     )
+
     const newEntity: Entity = (yield call(
       fetchSingleEntity,
       selectedWorld.id,
       newEntityId as string,
     )) as Entity
 
-    yield put(addChildEntity(newEntity))
+    yield put(addEntityToStore(newEntity))
   } catch (error) {
     console.log('Error creating child entity:', error)
   }
 }
 
-function* handleAddChildEntity(
+function* handleAddEntityToStore(
   action: PayloadAction<Entity>,
 ): Generator<unknown, void, unknown> {
   try {
-    const focusedEntity: Entity = (yield select(getFocusedEntity)) as Entity
-    const focusedEntityCopy = { ...focusedEntity }
-    focusedEntityCopy.childrenIds = focusedEntity.childrenIds
-      ? [...focusedEntity.childrenIds, action.payload.id]
-      : [action.payload.id]
-    const selectedWorld: World = (yield select(getSelectedWorld)) as World
-    yield call(
-      EntityService.updateEntity,
-      selectedWorld.id,
-      focusedEntityCopy.id,
-      focusedEntityCopy,
-    )
-    yield put(setFocusedEntity(focusedEntity))
+    const parentEntityToUpdate =
+      action.payload.parentId == null
+        ? null
+        : yield select(
+            getEntityById(action.payload.parentId),
+          ) as unknown as Entity
+    if (parentEntityToUpdate) {
+      console.log('Parent entity found:', parentEntityToUpdate)
+      const parentEntityCopy = { ...(parentEntityToUpdate as Entity) }
+      parentEntityCopy.childrenIds = [
+        ...(parentEntityCopy.childrenIds || []),
+        action.payload.id,
+      ]
+      yield call(
+        EntityService.updateEntity,
+        action.payload.worldId,
+        parentEntityCopy.id,
+        parentEntityCopy,
+      )
+    } else {
+      console.log('Updating world instead!')
+      // This is a top entity with no parent. So we update the world
+      const worldToUpdate: World = (yield select(
+        getWorldById(action.payload.worldId),
+      )) as World
+
+      const worldCopy = {
+        ...worldToUpdate,
+        topLevelEntities: [
+          ...(worldToUpdate.topLevelEntities || []),
+          action.payload,
+        ],
+      }
+      yield put(updateWorld(worldCopy))
+    }
   } catch (error) {
-    console.log('Error adding child entity:', error)
+    console.log('Error adding entity to store:', error)
   }
 }
 
@@ -196,5 +224,5 @@ export function* watchEntitiesSaga() {
     requestCreateChildEntity.type,
     handleRequestCreateChildEntity,
   )
-  yield takeLatest(addChildEntity.type, handleAddChildEntity)
+  yield takeLatest(addEntityToStore.type, handleAddEntityToStore)
 }
