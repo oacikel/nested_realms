@@ -5,19 +5,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getWorldById } from '@/redux/selectors/worldSelectors'
 import { Button, Text, View } from 'react-native'
 import { paths } from '@/constants/pathNames'
-import { EntityLite, EntityRequest } from '@/types/types'
+import { Entity, EntityLite, EntityRequest } from '@/types/types'
 import {
   requestCreateChildEntity,
   setEntityLiteOfInterest,
 } from '@/redux/slices/entitiesSlice'
 import EntityCreationForm from '@/components/forms/EntityCreationForm'
 import { getFocusedEntity } from '@/redux/selectors/entitySelectors'
+import TinyEntityList from '@/components/lists/tinyEntityList'
 
 const WorldDetail = () => {
   const { worldId } = useLocalSearchParams()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
+  const [topLevelEntities, setTopLevelEntities] = useState<Entity[] | null>([])
 
   const [showChildForm, setShowChildForm] = useState(false)
   const focusedEntity = useSelector(getFocusedEntity)
@@ -28,6 +30,14 @@ const WorldDetail = () => {
     entity.parentId = focusedEntity?.id || null
     dispatch(requestCreateChildEntity(entity))
   }
+
+  useEffect(() => {
+    if (world && world.topLevelEntities) {
+      setTopLevelEntities(world.topLevelEntities as Entity[])
+    } else {
+      setTopLevelEntities(null)
+    }
+  }, [world])
 
   useEffect(() => {
     if (!worldId) return
@@ -120,6 +130,7 @@ const WorldDetail = () => {
           ⚠️ No entities found for this world.
         </Text>
       )}
+      <TinyEntityList entities={topLevelEntities || []} />
       <Button
         title="➕ Add Child Entity"
         color="#007bff"
