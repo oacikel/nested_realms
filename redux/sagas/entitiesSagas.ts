@@ -40,7 +40,6 @@ function* handleRequestFocusedEntity(
       selectedWorld.id,
       action.payload.id,
     )) as Entity
-    console.log('Focused entity:', focusedEntity)
     yield put(setFocusedEntity(focusedEntity))
 
     // Now it's time to fetch the parent, and children of the focused entity
@@ -117,7 +116,6 @@ function* handleRequestChildrenEntities(): Generator<unknown, void, unknown> {
 
     if (focusedEntity.childrenIds == undefined) {
       yield put(setChildrenEntities(null))
-      console.log('No children entities to fetch')
       return
     }
 
@@ -166,16 +164,11 @@ function* handleAddEntityToStore(
             getEntityById(action.payload.parentId),
           ) as unknown as Entity
     if (parentEntityToUpdate) {
-      console.log(
-        'This entity will be updated. Check its children entities:',
-        parentEntityToUpdate,
-      )
       const parentEntityCopy = { ...(parentEntityToUpdate as Entity) }
       parentEntityCopy.childrenIds = [
         ...(parentEntityCopy.childrenIds || []),
         action.payload.id,
       ]
-      console.log('Entity will have children: ', parentEntityCopy.childrenIds)
       yield call(
         EntityService.updateEntity,
         action.payload.worldId,
@@ -184,7 +177,6 @@ function* handleAddEntityToStore(
       )
       yield updateAppropriateEntity(parentEntityCopy)
     } else {
-      console.log('Updating world instead!')
       // This is a top entity with no parent. So we update the world
       const worldToUpdate: World = (yield select(
         getWorldById(action.payload.worldId),
@@ -231,7 +223,6 @@ function* updateAppropriateEntity(entity: Entity) {
   const entityPosition: EntityPosition = yield select(
     getEntityPosition(entity.id),
   )
-  console.log('Position is ', entityPosition)
   switch (entityPosition) {
     case 'focused':
       yield put(setFocusedEntity(entity))
