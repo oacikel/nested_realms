@@ -1,5 +1,11 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects'
-import { Entity, EntityLite, EntityRequest, World } from '@/types/types'
+import {
+  Entity,
+  EntityLite,
+  EntityPosition,
+  EntityRequest,
+  World,
+} from '@/types/types'
 import {
   addEntityToStore,
   requestChildrenEntities,
@@ -16,6 +22,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import { EntityService } from '@/services/firebase/entityService'
 import {
   getEntityById,
+  getEntityPosition,
   getFocusedEntity,
   getParentEntity,
 } from '../selectors/entitySelectors'
@@ -33,7 +40,6 @@ function* handleRequestFocusedEntity(
       selectedWorld.id,
       action.payload.id,
     )) as Entity
-    console.log('Focused entity:', focusedEntity)
     yield put(setFocusedEntity(focusedEntity))
 
     // Now it's time to fetch the parent, and children of the focused entity
@@ -110,10 +116,8 @@ function* handleRequestChildrenEntities(): Generator<unknown, void, unknown> {
 
     if (focusedEntity.childrenIds == undefined) {
       yield put(setChildrenEntities(null))
-      console.log('No children entities to fetch')
       return
     }
-    console.log('Fetching children entities:', focusedEntity.childrenIds)
 
     const childrenEntities: Entity[] = (yield call(
       fetchMultipleEntities,
@@ -160,7 +164,6 @@ function* handleAddEntityToStore(
             getEntityById(action.payload.parentId),
           ) as unknown as Entity
     if (parentEntityToUpdate) {
-      console.log('Parent entity found:', parentEntityToUpdate)
       const parentEntityCopy = { ...(parentEntityToUpdate as Entity) }
       parentEntityCopy.childrenIds = [
         ...(parentEntityCopy.childrenIds || []),
@@ -172,8 +175,8 @@ function* handleAddEntityToStore(
         parentEntityCopy.id,
         parentEntityCopy,
       )
+      yield updateAppropriateEntity(parentEntityCopy)
     } else {
-      console.log('Updating world instead!')
       // This is a top entity with no parent. So we update the world
       const worldToUpdate: World = (yield select(
         getWorldById(action.payload.worldId),
@@ -213,6 +216,29 @@ const fetchSingleEntity = async (
   entityId: string,
 ): Promise<Entity | null> => {
   return await EntityService.getEntity(worldId, entityId)
+}
+
+// Use this to update entities within the store. If the entity is parent call set parent, if it's focused set focused etc.
+function* updateAppropriateEntity(entity: Entity) {
+  const entityPosition: EntityPosition = yield select(
+    getEntityPosition(entity.id),
+  )
+  switch (entityPosition) {
+    case 'focused':
+      yield put(setFocusedEntity(entity))
+      break
+    case 'parent':
+      yield put(setParentEntity(entity))
+      break
+    case 'neighbor':
+      yield put(setNeighborEntities([entity]))
+      break
+    case 'child':
+      yield put(setChildrenEntities([entity]))
+      break
+    default:
+      throw Error('Unknown entity position:', entityPosition)
+  }
 }
 
 export function* watchEntitiesSaga() {

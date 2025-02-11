@@ -54,6 +54,20 @@ const entitiesSlice = createSlice({
     setChildrenEntities: (state, action: PayloadAction<Entity[] | null>) => {
       state.children = action.payload
     },
+    addNeighborEntities: (state, action: PayloadAction<Entity[] | null>) => {
+      if (state.neighbor) {
+        state.neighbor.push(...(action.payload || []))
+      } else {
+        state.neighbor = action.payload
+      }
+    },
+    addChildrenEntities: (state, action: PayloadAction<Entity[] | null>) => {
+      if (state.children) {
+        state.children.push(...(action.payload || []))
+      } else {
+        state.children = action.payload
+      }
+    },
     addEntityToStore: (state, action: PayloadAction<Entity>) => {
       state.children = state.children
         ? [...state.children, action.payload]
@@ -72,6 +86,8 @@ export const {
   setParentEntity,
   setNeighborEntities,
   setChildrenEntities,
+  addNeighborEntities,
+  addChildrenEntities,
   requestCreateChildEntity,
   addEntityToStore,
 } = entitiesSlice.actions

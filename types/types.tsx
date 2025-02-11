@@ -39,6 +39,8 @@ export type EntityRequest = {
   parentId: string | null
 }
 
+export type EntityPosition = 'focused' | 'parent' | 'child' | 'neighbor'
+
 export interface AddEntitiesPayload {
   worldId: string
   entityRequests: EntityRequest[]

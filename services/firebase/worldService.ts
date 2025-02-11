@@ -39,7 +39,7 @@ const WorldService = {
         return {
           id: entityId,
           name: entity.name,
-          isTopLevel: entity.isTopLevel,
+          parentId: entity.parentId,
         } as EntityLite
       }
       return null
