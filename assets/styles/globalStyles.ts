@@ -19,7 +19,7 @@ export const PrimaryButton = styled.button`
     align-items: center;
     text-align: center;
     font-size: ${dimensions.textMedium};
-    font-family: 'NotoSans_700Bold';
+    font-family: 'NotoSans_400Regular';
   }
 `
 export const HorizontalDivider = styled.div`
@@ -37,7 +37,7 @@ export const ListButtonsContainer = styled.div`
 
 export const StyledInput = styled.textarea`
   font-size: ${dimensions.textMedium};
-  font-family: 'NotoSans_700Bold';
+  font-family: 'NotoSans_400Regular';
   border-radius: ${dimensions.borderRadius};
   border: ${dimensions.borderSize} solid ${colors.textDark};
   padding: ${dimensions.marginSmall};
@@ -52,7 +52,7 @@ export const ContainerColumn = styled.div`
 
   & > * {
     width: 100%;
-    font-family: 'NotoSans_700Bold';
+    font-family: 'NotoSans_400Regular';
   }
 `
 
@@ -62,10 +62,7 @@ export const ContainerColumn = styled.div`
 const BaseItemContianer = styled.div`
   display: flex;
   flex-direction: column;
-  
-  & > * {
-    font-family: 'NotoSans_700Bold';
-  }
+  font-family: 'NotoSans_400Regular';
 `
 // WorldList.tsx
 export const WorldCarouselContainer = styled.div`
@@ -105,6 +102,7 @@ export const WorldName = styled.div`
   text-align: start;
   color: ${colors.textDark};
   font-size: ${dimensions.textXXXLarge} !important;
+  font-family: 'NotoSans_700Bold';
 `
 
 export const WorldDescription = styled.div`
@@ -123,14 +121,17 @@ export const TinyEntityContainer = styled(BaseItemContianer)`
   border: 2px solid ${colors.textDark};
   border-radius: ${dimensions.borderRadius};
   padding: ${dimensions.marginSmall};
+  margin-right: ${dimensions.marginSmall};
+  background-color: ${colors.textDark};
   & > * {
     overflow: auto;
   }
 `
 
-export const TintEntityName = styled.div`
-  font-size: ${dimensions.textLarge};
-  font-weight: bold;
+export const TinyEntityName = styled.div`
+  font-size: ${dimensions.textMedium};
+  color: ${colors.textLight};
+  font-family: 'NotoSans_700Bold';
 `
 
 export const TinyEntityDescription = styled.text`
@@ -139,4 +140,35 @@ export const TinyEntityDescription = styled.text`
 `
 // -------- Lists End -------- //
 
+// -------- World Detail Page Start -------- //
+export const WorldDetailContainer = styled(BaseItemContianer)`
+  display: flex; /* Ensures it fills the space */
+  flex: 1; /* Takes up all available height */
+  height: 100%;
+  width: 100%;
+  padding: ${dimensions.marginLarge};
+  justify-content: flex-start;
+  align-items: start;
+  background-color: ${colors.primary};
+  gap: ${dimensions.marginLarge};
+`
+
+export const WorldDetailTitle = styled.div`
+  text-align: start;
+  width: 100%;
+  color: ${colors.textDark};
+  font-size: ${dimensions.textXLarge} !important;
+`
+
+export const WorldDetailDescription = styled.div`
+  text-align: start;
+  width: 50%;
+  font-size: ${dimensions.textMedium};
+  color: ${colors.textDark};
+`
+
+// -------- World Detail Page End -------- //
+
 // -------- Forms Start -------- //
+
+// -------- Forms End -------- //
