@@ -1,25 +1,45 @@
 import React, { useEffect } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   getChildrenEntities,
   getEntityLiteOfInterest,
   getFocusedEntity,
+  getParentEntity,
 } from '@/redux/selectors/entitySelectors'
 import {
   requestCreateChildEntity,
   requestFocusedEntity,
+  setEntityLiteOfInterest,
 } from '@/redux/slices/entitiesSlice'
 import EntityCreationForm from '@/components/forms/EntityCreationForm'
-import { EntityRequest } from '@/types/types'
+import { Entity, EntityRequest, World } from '@/types/types'
 import TinyEntityList from '@/components/lists/tinyEntityList'
+import {
+  EntityDetailContainer,
+  EntityDetailWorldName,
+  EntityDetailDescription,
+  PrimaryButton,
+  EntityDetailName,
+  EntityDetailTopBannerContainer,
+  EntityDetailParentName,
+  EntityDetailParentButton,
+  EntityDetailWorldButton,
+} from '@/assets/styles/globalStyles'
+import { getSelectedWorld } from '@/redux/selectors/worldSelectors'
+import { paths } from '@/constants/pathNames'
+import { router } from 'expo-router'
+import { convertToEntityLite } from '../utils/entityUtils'
+import { selectWorld } from '@/redux/slices/worldSlice'
 
 const EntityDetail = () => {
   const dispatch = useDispatch()
 
   const focusedEntity = useSelector(getFocusedEntity)
+  const parentEntity = useSelector(getParentEntity)
   const entityLiteOfInterest = useSelector(getEntityLiteOfInterest)
   const childrenEntities = useSelector(getChildrenEntities)
+  const selectedWorld = useSelector(getSelectedWorld)
 
   const [showChildForm, setShowChildForm] = React.useState(false)
 
@@ -30,6 +50,17 @@ const EntityDetail = () => {
     }
     entity.parentId = focusedEntity.id
     dispatch(requestCreateChildEntity(entity))
+  }
+
+  const onParentEntityPressed = (entity: Entity) => {
+    const entityLite = convertToEntityLite(entity)
+    dispatch(setEntityLiteOfInterest(entityLite))
+    router.push(paths.entityDetail)
+  }
+
+  const onWorldPressed = (world: World) => {
+    dispatch(selectWorld(world))
+    router.push(`${paths.world}?worldId=${world.id}`)
   }
 
   useEffect(() => {
@@ -47,58 +78,42 @@ const EntityDetail = () => {
   }
 
   return (
-    <View
-      style={{
-        padding: 16,
-        backgroundColor: '#f8f9fa',
-        borderRadius: 8,
-        width: '100%',
-        justifyContent: 'center',
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 24,
-          fontWeight: 'bold',
-          marginBottom: 8,
-          color: '#333',
-        }}
-      >
-        {focusedEntity.name}
-      </Text>
-      <Text style={{ fontSize: 16, color: '#555', marginBottom: 8 }}>
+    <EntityDetailContainer>
+      <EntityDetailTopBannerContainer>
+        <EntityDetailWorldButton onClick={() => onWorldPressed(selectedWorld!)}>
+          <EntityDetailWorldName>{selectedWorld?.name}</EntityDetailWorldName>
+        </EntityDetailWorldButton>
+        {parentEntity && (
+          <EntityDetailParentButton
+            onClick={() => onParentEntityPressed(parentEntity)}
+          >
+            <EntityDetailParentName>
+              {parentEntity?.name}
+            </EntityDetailParentName>
+          </EntityDetailParentButton>
+        )}
+      </EntityDetailTopBannerContainer>
+      <EntityDetailName>{focusedEntity.name}</EntityDetailName>
+      <EntityDetailDescription>
         {focusedEntity.description}
-      </Text>
-      <Text style={{ fontSize: 14, color: '#777', marginBottom: 16 }}>
-        Created At: {new Date(focusedEntity.createdAt).toLocaleDateString()}
-      </Text>
-
-      <View style={{ marginTop: 24 }}>
+      </EntityDetailDescription>
+      <View>
         {childrenEntities && <TinyEntityList entities={childrenEntities} />}
       </View>
-      <Button
-        title="➕ Add Child Entity"
-        color="#007bff"
-        onPress={() => setShowChildForm(true)}
-      />
-
       {showChildForm && (
-        <View
-          style={{
-            marginTop: 16,
-            padding: 12,
-            backgroundColor: '#fff',
-            borderRadius: 8,
-          }}
-        >
+        <View>
           <EntityCreationForm
             onCreateEntityPress={onCreateEntityPress}
-            worldId={focusedEntity.worldId}
-            parentId={focusedEntity.id}
+            worldId={focusedEntity.worldId as string}
+            parentId={focusedEntity.id} // Since this is on world creation page. There is no upper parent entity.
           />
         </View>
       )}
-    </View>
+      <PrimaryButton onClick={() => setShowChildForm(!showChildForm)}>
+        <span>+</span>
+        <span>Add Child Entity</span>
+      </PrimaryButton>
+    </EntityDetailContainer>
   )
 }
 

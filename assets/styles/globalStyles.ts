@@ -166,8 +166,72 @@ export const WorldDetailDescription = styled.div`
   font-size: ${dimensions.textMedium};
   color: ${colors.textDark};
 `
-
 // -------- World Detail Page End -------- //
+
+// -------- Entity Detail Page Start -------- //
+export const EntityDetailContainer = styled(BaseItemContianer)`
+  display: flex; /* Ensures it fills the space */
+  flex: 1; /* Takes up all available height */
+  height: 100%;
+  width: 100%;
+  padding: ${dimensions.marginLarge};
+  justify-content: flex-start;
+  align-items: start;
+  background-color: ${colors.primary};
+  gap: ${dimensions.marginLarge};
+`
+export const EntityDetailTopBannerContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+`
+export const EntityDetailWorldName = styled.div`
+  color: ${colors.textDark};
+  width: 100%;
+  font-size: ${dimensions.textMedium} !important;
+`
+
+export const EntityDetailWorldButton = styled(PrimaryButton)`
+  position: absolute;
+  left: 0;
+  background-color: ${colors.lightTransparent};
+  padding: ${dimensions.marginSmall};
+  color: ${colors.textDark};
+  font-size: ${dimensions.textXLarge} !important;
+  border: none;
+  border-radius: 0;
+`
+
+export const EntityDetailParentButton = styled(PrimaryButton)`
+  position: absolute;
+  left: 50;
+  background-color: ${colors.lightTransparent};
+  padding: ${dimensions.marginSmall};
+  color: ${colors.textDark};
+  font-size: ${dimensions.textXLarge} !important;
+  border: none;
+  border-radius: 0;
+`
+
+export const EntityDetailParentName = styled.div`
+  color: ${colors.textDark};
+  font-size: ${dimensions.textLarge} !important;
+`
+
+export const EntityDetailName = styled.div`
+  text-align: center;
+  width: 100%;
+  color: ${colors.textDark};
+  font-size: ${dimensions.textXXXLarge} !important;
+`
+export const EntityDetailDescription = styled.div`
+  text-align: start;
+  width: 50%;
+  font-size: ${dimensions.textMedium};
+  color: ${colors.textDark};
+`
+// -------- Entity Detail Page End -------- //
 
 // -------- Forms Start -------- //
 
