@@ -1,12 +1,18 @@
 import {
+  ListButtonsContainer,
+  PrimaryButton,
   WorldCarousel,
   WorldCarouselContainer,
   WorldDescription,
   WorldItemContainer,
   WorldName,
 } from '@/assets/styles/globalStyles'
+import { paths } from '@/constants/pathNames'
+import { selectWorld } from '@/redux/slices/worldSlice'
 import { World } from '@/types/types'
+import { router } from 'expo-router'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 
 interface WorldListProps {
@@ -14,6 +20,13 @@ interface WorldListProps {
 }
 
 const WorldList: React.FC<WorldListProps> = ({ worlds }) => {
+  const dispatch = useDispatch()
+
+  const handleSelectWorldClick = (world: World) => {
+    dispatch(selectWorld(world))
+    router.push(`${paths.world}?worldId=${world.id}`)
+  }
+
   return (
     <WorldCarouselContainer>
       <WorldCarousel
@@ -30,6 +43,12 @@ const WorldList: React.FC<WorldListProps> = ({ worlds }) => {
           <WorldItemContainer>
             <WorldName>{world.name}</WorldName>
             <WorldDescription>{world.description}</WorldDescription>
+            <ListButtonsContainer>
+              <PrimaryButton onClick={() => handleSelectWorldClick(world)}>
+                <span>?</span>
+                <span>Discover World</span>
+              </PrimaryButton>
+            </ListButtonsContainer>
           </WorldItemContainer>
         ))}
       </WorldCarousel>

@@ -10,15 +10,16 @@ export const PrimaryButton = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${colors.secondary};
   border-radius: ${dimensions.borderRadius};
-  background-color: ${colors.primary};
+  border: ${dimensions.borderSize} solid ${colors.textDark};
 
   & > * {
     justify-content: center;
     align-items: center;
     text-align: center;
     font-size: ${dimensions.textMedium};
-    font-family: 'NotoSansMono';
+    font-family: 'NotoSans_700Bold';
   }
 `
 export const HorizontalDivider = styled.div`
@@ -36,7 +37,7 @@ export const ListButtonsContainer = styled.div`
 
 export const StyledInput = styled.textarea`
   font-size: ${dimensions.textMedium};
-  font-family: 'NotoSansMono';
+  font-family: 'NotoSans_700Bold';
   border-radius: ${dimensions.borderRadius};
   border: ${dimensions.borderSize} solid ${colors.textDark};
   padding: ${dimensions.marginSmall};
@@ -44,7 +45,6 @@ export const StyledInput = styled.textarea`
 `
 
 export const ContainerColumn = styled.div`
-  font-family: 'NotoSansMono';
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,6 +52,7 @@ export const ContainerColumn = styled.div`
 
   & > * {
     width: 100%;
+    font-family: 'NotoSans_700Bold';
   }
 `
 
@@ -61,6 +62,10 @@ export const ContainerColumn = styled.div`
 const BaseItemContianer = styled.div`
   display: flex;
   flex-direction: column;
+  
+  & > * {
+    font-family: 'NotoSans_700Bold';
+  }
 `
 // WorldList.tsx
 export const WorldCarouselContainer = styled.div`
@@ -89,28 +94,24 @@ export const WorldItemContainer = styled(BaseItemContianer)`
   flex: 1; /* Takes up all available height */
   height: 100%;
   width: 100%;
+  padding: ${dimensions.marginXLarge};
   justify-content: center;
   align-items: center;
-  border: 3px solid ${colors.textDark};
-  border-radius: ${dimensions.borderRadius};
   background-color: ${colors.primary};
+  gap: ${dimensions.marginLarge};
 `
 
 export const WorldName = styled.div`
-  border-bottom: 3px solid ${colors.textDark};
-  padding: ${dimensions.marginSmall};
-  margin: 0;
-  background-color: ${colors.textDark};
-  text-align: center;
-  color: ${colors.textLight};
-  font-size: ${dimensions.textMedium} !important;
+  text-align: start;
+  color: ${colors.textDark};
+  font-size: ${dimensions.textXXXLarge} !important;
 `
 
-export const WorldDescription = styled.text`
-  font-size: ${dimensions.textMedium};
-  padding: ${dimensions.marginMedium};
-  text-color: ${colors.textDark};
-  text-align: start;
+export const WorldDescription = styled.div`
+  text-align: center;
+  width: 50%;
+  font-size: ${dimensions.textLarge};
+  color: ${colors.textDark};
 `
 
 // tinyEntityList.tsx
@@ -121,7 +122,6 @@ export const TinyEntityContainer = styled(BaseItemContianer)`
   flex-direction: column;
   border: 2px solid ${colors.textDark};
   border-radius: ${dimensions.borderRadius};
-  font-family: 'NotoSansMono';
   padding: ${dimensions.marginSmall};
   & > * {
     overflow: auto;
