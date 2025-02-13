@@ -4,7 +4,6 @@ import { colors } from '../colors'
 import { Carousel } from 'react-responsive-carousel'
 import { MaterialIcons } from '@expo/vector-icons'
 import { EntityListType } from '@/types/types'
-import { ScrollView } from 'react-native'
 
 // -------- Common Components Start -------- //
 
@@ -73,13 +72,15 @@ const BaseItemContianer = styled.div`
   flex-direction: column;
   font-family: 'NotoSans';
 `
+
 // WorldList.tsx
-export const WorldCarouselContainer = styled(ScrollView)`
+export const WorldCarouselContainer = styled.div`
   height: 100%;
 `
+
 export const WorldCarousel = styled(Carousel)`
   height: 100%;
-  background-color: ${colors.secondary};
+  background-color: ${colors.primary};
 
   /* Make sure the inner slider wrapper takes full height */
   .carousel-slider {
@@ -100,7 +101,6 @@ export const WorldItemContainer = styled(BaseItemContianer)`
   padding: ${dimensions.marginXLarge};
   justify-content: center;
   align-items: center;
-  background-color: ${colors.primary};
   gap: ${dimensions.marginLarge};
 `
 
@@ -109,6 +109,9 @@ export const WorldName = styled.div`
   color: ${colors.textDark};
   font-size: ${dimensions.textXXXLarge} !important;
   font-family: 'NotoSans';
+  @media (max-width: 768px) {
+    font-size: ${dimensions.textXLarge} !important;
+  }
 `
 
 export const WorldDescription = styled.div`
