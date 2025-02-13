@@ -33,7 +33,15 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "fonts": [
+            {"NotoSans_Bold": "./assets/fonts/NotoSans-Bold.ttf"},
+            {"NotoSans_Regular": "./assets/fonts/NotoSans-Regular.ttf"}
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

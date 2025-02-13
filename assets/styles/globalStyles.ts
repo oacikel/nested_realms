@@ -19,7 +19,7 @@ export const PrimaryButton = styled.button`
     align-items: center;
     text-align: center;
     font-size: ${dimensions.textMedium};
-    font-family: 'NotoSans_400Regular';
+    font-family: 'NotoSans';
   }
 `
 export const HorizontalDivider = styled.div`
@@ -37,7 +37,7 @@ export const ListButtonsContainer = styled.div`
 
 export const StyledInput = styled.textarea`
   font-size: ${dimensions.textMedium};
-  font-family: 'NotoSans_400Regular';
+  font-family: 'NotoSans';
   border-radius: ${dimensions.borderRadius};
   border: ${dimensions.borderSize} solid ${colors.textDark};
   padding: ${dimensions.marginSmall};
@@ -52,7 +52,7 @@ export const ContainerColumn = styled.div`
 
   & > * {
     width: 100%;
-    font-family: 'NotoSans_400Regular';
+    font-family: 'NotoSans';
   }
 `
 
@@ -62,7 +62,7 @@ export const ContainerColumn = styled.div`
 const BaseItemContianer = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: 'NotoSans_400Regular';
+  font-family: 'NotoSans';
 `
 // WorldList.tsx
 export const WorldCarouselContainer = styled.div`
@@ -102,7 +102,7 @@ export const WorldName = styled.div`
   text-align: start;
   color: ${colors.textDark};
   font-size: ${dimensions.textXXXLarge} !important;
-  font-family: 'NotoSans_700Bold';
+  font-family: 'NotoSans';
 `
 
 export const WorldDescription = styled.div`
@@ -131,7 +131,7 @@ export const TinyEntityContainer = styled(BaseItemContianer)`
 export const TinyEntityName = styled.div`
   font-size: ${dimensions.textMedium};
   color: ${colors.textLight};
-  font-family: 'NotoSans_700Bold';
+  font-family: 'NotoSans';
 `
 
 export const TinyEntityDescription = styled.text`
@@ -183,18 +183,18 @@ export const EntityDetailContainer = styled(BaseItemContianer)`
 export const EntityDetailTopBannerContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: ${dimensions.marginSmall};
   width: 100%;
 `
 export const EntityDetailWorldName = styled.div`
   color: ${colors.textDark};
-  width: 100%;
   font-size: ${dimensions.textMedium} !important;
 `
 
+export const EntityDetailHomeButton = styled(EntityDetailWorldName)``
+
 export const EntityDetailWorldButton = styled(PrimaryButton)`
-  position: absolute;
-  left: 0;
   background-color: ${colors.lightTransparent};
   padding: ${dimensions.marginSmall};
   color: ${colors.textDark};

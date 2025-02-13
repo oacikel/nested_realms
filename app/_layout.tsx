@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
+import NotoSans from 'assets/fonts/SpaceMono-Regular.ttf'
 import { useEffect } from 'react'
 import 'react-native-reanimated'
-
-import SpaceMono from 'assets/fonts/SpaceMono-Regular.ttf'
 import { Provider } from 'react-redux'
 import { store } from '@/redux/store'
 
@@ -12,15 +12,18 @@ import { store } from '@/redux/store'
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
-    SpaceMono,
+  const [loaded, error] = useFonts({
+    NotoSans,
   })
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded || error) {
       SplashScreen.hideAsync()
     }
-  }, [loaded])
+    if (error) {
+      console.log(error)
+    }
+  }, [loaded, error])
 
   if (!loaded) {
     return null

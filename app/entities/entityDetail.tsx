@@ -5,15 +5,13 @@ import {
   getChildrenEntities,
   getEntityLiteOfInterest,
   getFocusedEntity,
-  getParentEntity,
 } from '@/redux/selectors/entitySelectors'
 import {
   requestCreateChildEntity,
   requestFocusedEntity,
-  setEntityLiteOfInterest,
 } from '@/redux/slices/entitiesSlice'
 import EntityCreationForm from '@/components/forms/EntityCreationForm'
-import { Entity, EntityRequest, World } from '@/types/types'
+import { EntityRequest, World } from '@/types/types'
 import TinyEntityList from '@/components/lists/tinyEntityList'
 import {
   EntityDetailContainer,
@@ -22,21 +20,17 @@ import {
   PrimaryButton,
   EntityDetailName,
   EntityDetailTopBannerContainer,
-  EntityDetailParentName,
-  EntityDetailParentButton,
   EntityDetailWorldButton,
 } from '@/assets/styles/globalStyles'
 import { getSelectedWorld } from '@/redux/selectors/worldSelectors'
 import { paths } from '@/constants/pathNames'
 import { router } from 'expo-router'
-import { convertToEntityLite } from '../utils/entityUtils'
 import { selectWorld } from '@/redux/slices/worldSlice'
 
 const EntityDetail = () => {
   const dispatch = useDispatch()
 
   const focusedEntity = useSelector(getFocusedEntity)
-  const parentEntity = useSelector(getParentEntity)
   const entityLiteOfInterest = useSelector(getEntityLiteOfInterest)
   const childrenEntities = useSelector(getChildrenEntities)
   const selectedWorld = useSelector(getSelectedWorld)
@@ -50,12 +44,6 @@ const EntityDetail = () => {
     }
     entity.parentId = focusedEntity.id
     dispatch(requestCreateChildEntity(entity))
-  }
-
-  const onParentEntityPressed = (entity: Entity) => {
-    const entityLite = convertToEntityLite(entity)
-    dispatch(setEntityLiteOfInterest(entityLite))
-    router.push(paths.entityDetail)
   }
 
   const onWorldPressed = (world: World) => {
@@ -81,17 +69,11 @@ const EntityDetail = () => {
     <EntityDetailContainer>
       <EntityDetailTopBannerContainer>
         <EntityDetailWorldButton onClick={() => onWorldPressed(selectedWorld!)}>
+          <EntityDetailWorldName>Home</EntityDetailWorldName>
+        </EntityDetailWorldButton>
+        <EntityDetailWorldButton onClick={() => onWorldPressed(selectedWorld!)}>
           <EntityDetailWorldName>{selectedWorld?.name}</EntityDetailWorldName>
         </EntityDetailWorldButton>
-        {parentEntity && (
-          <EntityDetailParentButton
-            onClick={() => onParentEntityPressed(parentEntity)}
-          >
-            <EntityDetailParentName>
-              {parentEntity?.name}
-            </EntityDetailParentName>
-          </EntityDetailParentButton>
-        )}
       </EntityDetailTopBannerContainer>
       <EntityDetailName>{focusedEntity.name}</EntityDetailName>
       <EntityDetailDescription>
