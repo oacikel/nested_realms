@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import dimensions from '../dimensions'
 import { colors } from '../colors'
 import { Carousel } from 'react-responsive-carousel'
+import { MaterialIcons } from '@expo/vector-icons'
+import { EntityListType } from '@/types/types'
+import { ScrollView } from 'react-native'
 
 // -------- Common Components Start -------- //
 
@@ -22,6 +25,12 @@ export const PrimaryButton = styled.button`
     font-family: 'NotoSans';
   }
 `
+
+export const CommonIcon = styled(MaterialIcons).attrs({
+  size: 24,
+  color: `${colors.textDark}`,
+})``
+
 export const HorizontalDivider = styled.div`
   width: 100%;
   height: ${dimensions.borderSize};
@@ -65,13 +74,11 @@ const BaseItemContianer = styled.div`
   font-family: 'NotoSans';
 `
 // WorldList.tsx
-export const WorldCarouselContainer = styled.div`
-  flex: 1;
-  display: flex;
+export const WorldCarouselContainer = styled(ScrollView)`
+  height: 100%;
 `
 export const WorldCarousel = styled(Carousel)`
   height: 100%;
-  flex: 1;
   background-color: ${colors.secondary};
 
   /* Make sure the inner slider wrapper takes full height */
@@ -88,7 +95,6 @@ export const WorldCarousel = styled(Carousel)`
 
 export const WorldItemContainer = styled(BaseItemContianer)`
   display: flex; /* Ensures it fills the space */
-  flex: 1; /* Takes up all available height */
   height: 100%;
   width: 100%;
   padding: ${dimensions.marginXLarge};
@@ -99,7 +105,7 @@ export const WorldItemContainer = styled(BaseItemContianer)`
 `
 
 export const WorldName = styled.div`
-  text-align: start;
+  text-align: center;
   color: ${colors.textDark};
   font-size: ${dimensions.textXXXLarge} !important;
   font-family: 'NotoSans';
@@ -107,30 +113,35 @@ export const WorldName = styled.div`
 
 export const WorldDescription = styled.div`
   text-align: center;
-  width: 50%;
+  width: 100%;
   font-size: ${dimensions.textLarge};
   color: ${colors.textDark};
 `
 
 // tinyEntityList.tsx
-export const TinyEntityContainer = styled(BaseItemContianer)`
+export const TinyEntityContainer = styled(BaseItemContianer)<{
+  listType: EntityListType
+}>`
   height: auto;
   width: auto;
   display: flex;
-  flex-direction: column;
-  border: 2px solid ${colors.textDark};
+  flex-direction: row;
+  border: ${({ listType }) =>
+    listType === 'selections' ? `2px solid ${colors.textDark}` : 'none'};
   border-radius: ${dimensions.borderRadius};
-  padding: ${dimensions.marginSmall};
+  padding: ${({ listType }) =>
+    listType === 'selections' ? dimensions.marginSmall : '0'};
   margin-right: ${dimensions.marginSmall};
-  background-color: ${colors.textDark};
-  & > * {
-    overflow: auto;
-  }
+  background-color: ${({ listType }) =>
+    listType === 'selections' ? colors.textDark : 'none'};
 `
 
-export const TinyEntityName = styled.div`
+export const TinyEntityName = styled.div<{
+  listType: EntityListType
+}>`
   font-size: ${dimensions.textMedium};
-  color: ${colors.textLight};
+  color: ${({ listType }) =>
+    listType === 'selections' ? colors.textLight : colors.textDark};
   font-family: 'NotoSans';
 `
 
@@ -219,15 +230,41 @@ export const EntityDetailParentName = styled.div`
   font-size: ${dimensions.textLarge} !important;
 `
 
+export const EntityInfoAndVisitedEntitiesContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 60%;
+  gap: ${dimensions.marginMedium};
+`
+
+export const EntityInfoContainer = styled.div`
+  display: flex;
+  border-radius: ${dimensions.borderRadius};
+  border: ${dimensions.borderSize} solid ${colors.textDark};
+  padding: ${dimensions.marginSmall};
+  flex: 3;
+  flex-direction: column;
+  gap: ${dimensions.marginMedium};
+`
+
+export const VisitedEntitiesContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  gap: ${dimensions.marginMedium};
+`
+
 export const EntityDetailName = styled.div`
-  text-align: center;
+  text-align: flex-start;
   width: 100%;
   color: ${colors.textDark};
-  font-size: ${dimensions.textXXXLarge} !important;
+  font-size: ${dimensions.textXXLarge} !important;
 `
 export const EntityDetailDescription = styled.div`
   text-align: start;
-  width: 50%;
+  width: 100%;
   font-size: ${dimensions.textMedium};
   color: ${colors.textDark};
 `

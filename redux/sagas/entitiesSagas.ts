@@ -14,9 +14,11 @@ import {
   requestNeighborEntities,
   requestParentEntity,
   setChildrenEntities,
+  setEntityLiteOfInterest,
   setFocusedEntity,
   setNeighborEntities,
   setParentEntity,
+  setVisitedEntities,
 } from '../slices/entitiesSlice'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { EntityService } from '@/services/firebase/entityService'
@@ -25,6 +27,7 @@ import {
   getEntityPosition,
   getFocusedEntity,
   getParentEntity,
+  getVisitedEntities,
 } from '../selectors/entitySelectors'
 import { waitForState } from '../reduxUtils'
 import { getSelectedWorld, getWorldById } from '../selectors/worldSelectors'
@@ -196,6 +199,32 @@ function* handleAddEntityToStore(
   }
 }
 
+// When an entity is selected aka entityLiteOfInterest is set, we update the list of entities visited.
+// This in turn ensures that we have a history of visited entries.
+function* handleSetEntityLiteOfInterest(
+  action: PayloadAction<EntityLite>,
+): Generator<unknown, void, unknown> {
+  try {
+    const visitedEntities: EntityLite[] = (yield select(
+      getVisitedEntities,
+    )) as EntityLite[]
+    const updatedVisitedEntities = visitedEntities ? [...visitedEntities] : []
+    const existingIndex = updatedVisitedEntities.findIndex(
+      (entity) => entity.id === action.payload.id,
+    )
+
+    if (existingIndex !== -1) {
+      updatedVisitedEntities.splice(existingIndex + 1)
+    } else {
+      updatedVisitedEntities.push(action.payload)
+    }
+
+    yield put(setVisitedEntities(updatedVisitedEntities))
+  } catch (error) {
+    console.log('Error creating child entity:', error)
+  }
+}
+
 const fetchMultipleEntities = async (
   worldId: string,
   entityIds: string[],
@@ -251,4 +280,5 @@ export function* watchEntitiesSaga() {
     handleRequestCreateChildEntity,
   )
   yield takeLatest(addEntityToStore.type, handleAddEntityToStore)
+  yield takeLatest(setEntityLiteOfInterest.type, handleSetEntityLiteOfInterest)
 }

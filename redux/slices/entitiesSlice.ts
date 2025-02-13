@@ -7,6 +7,7 @@ type EntitiesState = {
   parent: Entity | null
   neighbor: Entity[] | null
   children: Entity[] | null
+  visitedEntities: EntityLite[] | null
 }
 
 const initialState: EntitiesState = {
@@ -15,6 +16,7 @@ const initialState: EntitiesState = {
   parent: null,
   neighbor: null,
   children: null,
+  visitedEntities: null,
 }
 
 const entitiesSlice = createSlice({
@@ -73,6 +75,9 @@ const entitiesSlice = createSlice({
         ? [...state.children, action.payload]
         : [action.payload]
     },
+    setVisitedEntities: (state, action: PayloadAction<EntityLite[] | null>) => {
+      state.visitedEntities = action.payload
+    },
   },
 })
 
@@ -90,5 +95,6 @@ export const {
   addChildrenEntities,
   requestCreateChildEntity,
   addEntityToStore,
+  setVisitedEntities,
 } = entitiesSlice.actions
 export default entitiesSlice.reducer
