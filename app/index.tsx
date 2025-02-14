@@ -24,7 +24,7 @@ export default function HomePage() {
   }
 
   return (
-    <View style={{ height: '100%' }}>
+    <View style={{ height: '100%', backgroundColor: 'red' }}>
       <WorldList worlds={worlds} />
       <Button title="Create A New World" onPress={handleNewWorldButtonClick} />
     </View>

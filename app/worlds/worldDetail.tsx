@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getWorldById } from '@/redux/selectors/worldSelectors'
 import { View } from 'react-native'
 import { Entity, EntityRequest } from '@/types/types'
-import { requestCreateChildEntity } from '@/redux/slices/entitiesSlice'
+import {
+  clearState,
+  requestCreateChildEntity,
+} from '@/redux/slices/entitiesSlice'
 import EntityCreationForm from '@/components/forms/EntityCreationForm'
-import { getFocusedEntity } from '@/redux/selectors/entitySelectors'
 import TinyEntityList from '@/components/lists/tinyEntityList'
 import {
   PrimaryButton,
@@ -24,14 +26,16 @@ const WorldDetail = () => {
   const [topLevelEntities, setTopLevelEntities] = useState<Entity[] | null>([])
 
   const [showChildForm, setShowChildForm] = useState(false)
-  const focusedEntity = useSelector(getFocusedEntity)
 
   const world = useSelector(getWorldById(worldId as string))
 
   const onCreateEntityPress = (entity: EntityRequest) => {
-    entity.parentId = focusedEntity?.id || null
     dispatch(requestCreateChildEntity(entity))
   }
+
+  useEffect(() => {
+    dispatch(clearState())
+  }, [])
 
   useEffect(() => {
     if (world && world.topLevelEntities) {

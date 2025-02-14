@@ -17,6 +17,7 @@ import {
   setFocusedEntity,
   setNeighborEntities,
   setParentEntity,
+  setVisitedEntities,
 } from '../slices/entitiesSlice'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { EntityService } from '@/services/firebase/entityService'
@@ -25,6 +26,7 @@ import {
   getEntityPosition,
   getFocusedEntity,
   getParentEntity,
+  getVisitedEntities,
 } from '../selectors/entitySelectors'
 import { waitForState } from '../reduxUtils'
 import { getSelectedWorld, getWorldById } from '../selectors/worldSelectors'
@@ -196,6 +198,33 @@ function* handleAddEntityToStore(
   }
 }
 
+// When an entity is selected aka entityLiteOfInterest is set, we update the list of entities visited.
+// This in turn ensures that we have a history of visited entries.
+function* handleSetFocusedEntity(
+  action: PayloadAction<Entity | null>,
+): Generator<unknown, void, unknown> {
+  try {
+    console.log('OCUL - Trying setting up entity of interest:', action.payload)
+    const visitedEntities: Entity[] = (yield select(
+      getVisitedEntities,
+    )) as Entity[]
+    const updatedVisitedEntities = visitedEntities ? [...visitedEntities] : []
+    const existingIndex = updatedVisitedEntities.findIndex(
+      (entity) => entity.id === action.payload?.id,
+    )
+
+    if (existingIndex !== -1) {
+      updatedVisitedEntities.splice(existingIndex + 1)
+    } else if (action.payload) {
+      updatedVisitedEntities.push(action.payload)
+    }
+
+    yield put(setVisitedEntities(updatedVisitedEntities))
+  } catch (error) {
+    console.log('Error creating child entity:', error)
+  }
+}
+
 const fetchMultipleEntities = async (
   worldId: string,
   entityIds: string[],
@@ -251,4 +280,5 @@ export function* watchEntitiesSaga() {
     handleRequestCreateChildEntity,
   )
   yield takeLatest(addEntityToStore.type, handleAddEntityToStore)
+  yield takeLatest(setFocusedEntity.type, handleSetFocusedEntity)
 }

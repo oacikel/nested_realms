@@ -1,31 +1,32 @@
 import React, { useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   getChildrenEntities,
   getEntityLiteOfInterest,
   getFocusedEntity,
+  getVisitedEntities,
 } from '@/redux/selectors/entitySelectors'
 import {
   requestCreateChildEntity,
   requestFocusedEntity,
 } from '@/redux/slices/entitiesSlice'
 import EntityCreationForm from '@/components/forms/EntityCreationForm'
-import { EntityRequest, World } from '@/types/types'
+import { EntityRequest } from '@/types/types'
 import TinyEntityList from '@/components/lists/tinyEntityList'
 import {
   EntityDetailContainer,
-  EntityDetailWorldName,
   EntityDetailDescription,
   PrimaryButton,
   EntityDetailName,
   EntityDetailTopBannerContainer,
-  EntityDetailWorldButton,
+  EntityInfoContainer,
+  EntityInfoAndVisitedEntitiesContainer,
+  VisitedEntitiesContainer,
 } from '@/assets/styles/globalStyles'
 import { getSelectedWorld } from '@/redux/selectors/worldSelectors'
-import { paths } from '@/constants/pathNames'
-import { router } from 'expo-router'
-import { selectWorld } from '@/redux/slices/worldSlice'
+import HomeButton from '@/components/buttons/homeButton'
+import WorldButton from '@/components/buttons/WorldButton'
 
 const EntityDetail = () => {
   const dispatch = useDispatch()
@@ -33,6 +34,7 @@ const EntityDetail = () => {
   const focusedEntity = useSelector(getFocusedEntity)
   const entityLiteOfInterest = useSelector(getEntityLiteOfInterest)
   const childrenEntities = useSelector(getChildrenEntities)
+  const visitedEntities = useSelector(getVisitedEntities)
   const selectedWorld = useSelector(getSelectedWorld)
 
   const [showChildForm, setShowChildForm] = React.useState(false)
@@ -44,11 +46,6 @@ const EntityDetail = () => {
     }
     entity.parentId = focusedEntity.id
     dispatch(requestCreateChildEntity(entity))
-  }
-
-  const onWorldPressed = (world: World) => {
-    dispatch(selectWorld(world))
-    router.push(`${paths.world}?worldId=${world.id}`)
   }
 
   useEffect(() => {
@@ -68,17 +65,26 @@ const EntityDetail = () => {
   return (
     <EntityDetailContainer>
       <EntityDetailTopBannerContainer>
-        <EntityDetailWorldButton onClick={() => onWorldPressed(selectedWorld!)}>
-          <EntityDetailWorldName>Home</EntityDetailWorldName>
-        </EntityDetailWorldButton>
-        <EntityDetailWorldButton onClick={() => onWorldPressed(selectedWorld!)}>
-          <EntityDetailWorldName>{selectedWorld?.name}</EntityDetailWorldName>
-        </EntityDetailWorldButton>
+        <HomeButton />
+        {selectedWorld && <WorldButton world={selectedWorld} />}
       </EntityDetailTopBannerContainer>
-      <EntityDetailName>{focusedEntity.name}</EntityDetailName>
-      <EntityDetailDescription>
-        {focusedEntity.description}
-      </EntityDetailDescription>
+      <EntityInfoAndVisitedEntitiesContainer>
+        <EntityInfoContainer>
+          <ScrollView>
+            <EntityDetailName>{focusedEntity.name}</EntityDetailName>
+            <EntityDetailDescription>
+              {focusedEntity.description}
+            </EntityDetailDescription>
+          </ScrollView>
+        </EntityInfoContainer>
+        <VisitedEntitiesContainer>
+          <View style={{ flex: 1 }}>
+            {visitedEntities && (
+              <TinyEntityList entities={visitedEntities} listType="history" />
+            )}
+          </View>
+        </VisitedEntitiesContainer>
+      </EntityInfoAndVisitedEntitiesContainer>
       <View>
         {childrenEntities && <TinyEntityList entities={childrenEntities} />}
       </View>
