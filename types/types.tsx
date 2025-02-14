@@ -23,7 +23,7 @@ export type WorldRequest = {
 export type Entity = {
   id: string
   name: string
-  description: string
+  description?: string
   createdAt: Date
   worldId: string
   parentId: string | null
@@ -34,7 +34,7 @@ export type Entity = {
 export type EntityRequest = {
   worldId: string
   name: string
-  description: string
+  description?: string
   createdAt: Date
   parentId: string | null
 }

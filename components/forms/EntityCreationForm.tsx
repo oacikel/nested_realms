@@ -18,14 +18,14 @@ const EntityCreationForm: React.FC<EntityCreationParams> = ({
   const [error, setError] = useState<string | null>(null)
 
   const handleAddChildEntity = () => {
-    if (!name || !description) {
-      setError('Please enter a name and description')
+    if (!name) {
+      setError('Please enter a name')
       return
     }
     const entityRequest: EntityRequest = {
       worldId,
       name: name,
-      description: description,
+      description: description || '',
       createdAt: new Date(),
       parentId,
     }
