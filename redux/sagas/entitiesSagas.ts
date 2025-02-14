@@ -14,7 +14,6 @@ import {
   requestNeighborEntities,
   requestParentEntity,
   setChildrenEntities,
-  setEntityLiteOfInterest,
   setFocusedEntity,
   setNeighborEntities,
   setParentEntity,
@@ -201,21 +200,22 @@ function* handleAddEntityToStore(
 
 // When an entity is selected aka entityLiteOfInterest is set, we update the list of entities visited.
 // This in turn ensures that we have a history of visited entries.
-function* handleSetEntityLiteOfInterest(
-  action: PayloadAction<EntityLite>,
+function* handleSetFocusedEntity(
+  action: PayloadAction<Entity | null>,
 ): Generator<unknown, void, unknown> {
   try {
-    const visitedEntities: EntityLite[] = (yield select(
+    console.log('OCUL - Trying setting up entity of interest:', action.payload)
+    const visitedEntities: Entity[] = (yield select(
       getVisitedEntities,
-    )) as EntityLite[]
+    )) as Entity[]
     const updatedVisitedEntities = visitedEntities ? [...visitedEntities] : []
     const existingIndex = updatedVisitedEntities.findIndex(
-      (entity) => entity.id === action.payload.id,
+      (entity) => entity.id === action.payload?.id,
     )
 
     if (existingIndex !== -1) {
       updatedVisitedEntities.splice(existingIndex + 1)
-    } else {
+    } else if (action.payload) {
       updatedVisitedEntities.push(action.payload)
     }
 
@@ -280,5 +280,5 @@ export function* watchEntitiesSaga() {
     handleRequestCreateChildEntity,
   )
   yield takeLatest(addEntityToStore.type, handleAddEntityToStore)
-  yield takeLatest(setEntityLiteOfInterest.type, handleSetEntityLiteOfInterest)
+  yield takeLatest(setFocusedEntity.type, handleSetFocusedEntity)
 }
