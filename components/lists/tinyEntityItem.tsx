@@ -10,7 +10,7 @@ import { TouchableOpacity } from 'react-native'
 interface TinyEntityItemProps {
   entity: Entity | EntityRequest
   index: number
-  onPress?: (entity: Entity | EntityRequest) => void
+  onPress: (entity: Entity | EntityRequest) => void
   listType?: EntityListType
 }
 
@@ -24,7 +24,7 @@ const TinyEntityItem: React.FC<TinyEntityItemProps> = ({
     <TinyEntityContainer key={index} listType={listType}>
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
-        onPress={() => onPress && onPress(entity)}
+        onPress={() => onPress(entity)}
       >
         {listType == 'history' && (
           <CommonIcon

@@ -25,6 +25,16 @@ export const PrimaryButton = styled.button`
   }
 `
 
+const primaryText = styled.span`
+  color: ${colors.textDark};
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  hyphens: auto;
+  font-family: 'NotoSans';
+`
+
 export const CommonIcon = styled(MaterialIcons).attrs({
   size: 24,
   color: `${colors.textDark}`,
@@ -104,29 +114,24 @@ export const WorldItemContainer = styled(BaseItemContianer)`
   gap: ${dimensions.marginLarge};
 `
 
-export const WorldName = styled.div`
+export const WorldName = styled(primaryText)`
   text-align: center;
-  color: ${colors.textDark};
-  font-size: ${dimensions.textXXXLarge} !important;
-  font-family: 'NotoSans';
+  font-size: ${dimensions.textXXXLarge};
   @media (max-width: 768px) {
-    font-size: ${dimensions.textXLarge} !important;
+    font-size: ${dimensions.textXLarge};
   }
 `
 
-export const WorldDescription = styled.div`
+export const WorldDescription = styled(primaryText)`
   text-align: center;
   width: 100%;
   font-size: ${dimensions.textLarge};
-  color: ${colors.textDark};
 `
 
 // tinyEntityList.tsx
 export const TinyEntityContainer = styled(BaseItemContianer)<{
   listType: EntityListType
 }>`
-  height: auto;
-  width: auto;
   display: flex;
   flex-direction: row;
   border: ${({ listType }) =>
@@ -139,16 +144,16 @@ export const TinyEntityContainer = styled(BaseItemContianer)<{
     listType === 'selections' ? colors.textDark : 'none'};
 `
 
-export const TinyEntityName = styled.div<{
+export const TinyEntityName = styled(primaryText)<{
   listType: EntityListType
 }>`
+  text-align: start;
   font-size: ${dimensions.textMedium};
   color: ${({ listType }) =>
     listType === 'selections' ? colors.textLight : colors.textDark};
-  font-family: 'NotoSans';
 `
 
-export const TinyEntityDescription = styled.text`
+export const TinyEntityDescription = styled(primaryText)`
   font-size: ${dimensions.textMedium};
   text-align: start;
 `
@@ -171,14 +176,13 @@ export const WorldDetailTitle = styled.div`
   text-align: start;
   width: 100%;
   color: ${colors.textDark};
-  font-size: ${dimensions.textXLarge} !important;
+  font-size: ${dimensions.textXLarge};
 `
 
-export const WorldDetailDescription = styled.div`
+export const WorldDetailDescription = styled(primaryText)`
   text-align: start;
   width: 50%;
   font-size: ${dimensions.textMedium};
-  color: ${colors.textDark};
 `
 // -------- World Detail Page End -------- //
 
@@ -187,9 +191,7 @@ export const EntityDetailContainer = styled(BaseItemContianer)`
   display: flex; /* Ensures it fills the space */
   flex: 1; /* Takes up all available height */
   height: 100%;
-  width: 100%;
-  padding: ${dimensions.marginLarge};
-  justify-content: flex-start;
+  padding: ${dimensions.marginMedium};
   align-items: start;
   background-color: ${colors.primary};
   gap: ${dimensions.marginLarge};
@@ -201,48 +203,18 @@ export const EntityDetailTopBannerContainer = styled.div`
   gap: ${dimensions.marginSmall};
   width: 100%;
 `
-export const EntityDetailWorldName = styled.div`
-  color: ${colors.textDark};
-  font-size: ${dimensions.textMedium} !important;
-`
-
-export const EntityDetailHomeButton = styled(EntityDetailWorldName)``
-
-export const EntityDetailWorldButton = styled(PrimaryButton)`
-  background-color: ${colors.lightTransparent};
-  padding: ${dimensions.marginSmall};
-  color: ${colors.textDark};
-  font-size: ${dimensions.textXLarge} !important;
-  border: none;
-  border-radius: 0;
-`
-
-export const EntityDetailParentButton = styled(PrimaryButton)`
-  position: absolute;
-  left: 50;
-  background-color: ${colors.lightTransparent};
-  padding: ${dimensions.marginSmall};
-  color: ${colors.textDark};
-  font-size: ${dimensions.textXLarge} !important;
-  border: none;
-  border-radius: 0;
-`
-
-export const EntityDetailParentName = styled.div`
-  color: ${colors.textDark};
-  font-size: ${dimensions.textLarge} !important;
-`
 
 export const EntityInfoAndVisitedEntitiesContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 60%;
+  height: 70%;
   gap: ${dimensions.marginMedium};
 `
 
 export const EntityInfoContainer = styled.div`
   display: flex;
+  width: 70%;
   border-radius: ${dimensions.borderRadius};
   border: ${dimensions.borderSize} solid ${colors.textDark};
   padding: ${dimensions.marginSmall};
@@ -256,20 +228,18 @@ export const VisitedEntitiesContainer = styled.div`
   flex: 1;
   flex-direction: column;
   height: 100%;
-  gap: ${dimensions.marginMedium};
+  width: 20%;
 `
 
-export const EntityDetailName = styled.div`
+export const EntityDetailName = styled(primaryText)`
   text-align: flex-start;
   width: 100%;
-  color: ${colors.textDark};
-  font-size: ${dimensions.textXXLarge} !important;
+  font-size: ${dimensions.textXXLarge};
 `
-export const EntityDetailDescription = styled.div`
+export const EntityDetailDescription = styled(primaryText)`
   text-align: start;
   width: 100%;
   font-size: ${dimensions.textMedium};
-  color: ${colors.textDark};
 `
 // -------- Entity Detail Page End -------- //
 
