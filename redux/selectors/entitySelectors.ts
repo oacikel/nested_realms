@@ -103,3 +103,8 @@ export const getEntityPosition = (id: string) =>
 
     throw new Error(`Entity position not found for id ${id}`)
   })
+
+export const getVisitedEntities = createSelector(
+  [selectEntitiesState],
+  (entitiesState) => entitiesState.visitedEntities,
+)

@@ -45,3 +45,5 @@ export interface AddEntitiesPayload {
   worldId: string
   entityRequests: EntityRequest[]
 }
+
+export type EntityListType = 'selections' | 'history'

@@ -1,21 +1,29 @@
 import { convertToEntityLite } from '@/app/utils/entityUtils'
-import {
-  TinyEntityName,
-  TinyEntityContainer,
-} from '@/assets/styles/globalStyles'
 import { paths } from '@/constants/pathNames'
 import { setEntityLiteOfInterest } from '@/redux/slices/entitiesSlice'
-import { Entity } from '@/types/types'
 import { router } from 'expo-router'
 import React from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
+import Grid from '@mui/material/Grid2'
+import {
+  Entity,
+  EntityListType,
+  EntityLite,
+  EntityRequest,
+} from '@/types/types'
+import { Box } from '@mui/system'
+import TinyEntityItem from './tinyEntityItem'
+import { ScrollView } from 'react-native'
 
 interface TinyEntityListProps {
-  entities: Entity[]
+  entities: Entity[] | EntityLite[]
+  listType?: EntityListType
 }
 
-const TinyEntityList: React.FC<TinyEntityListProps> = ({ entities }) => {
+const TinyEntityList: React.FC<TinyEntityListProps> = ({
+  entities,
+  listType = 'selections',
+}) => {
   const dispatch = useDispatch()
 
   const handleEntityButtonPress = (entity: Entity) => {
@@ -24,18 +32,27 @@ const TinyEntityList: React.FC<TinyEntityListProps> = ({ entities }) => {
     router.push(paths.entityDetail)
   }
 
+  const data = entities
   return (
-    <ScrollView horizontal>
-      {entities.map((entity, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => handleEntityButtonPress(entity)}
+    <ScrollView>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid
+          direction={listType === 'selections' ? 'row' : 'column'}
+          container
+          spacing={1}
         >
-          <TinyEntityContainer>
-            <TinyEntityName>{entity.name}</TinyEntityName>
-          </TinyEntityContainer>
-        </TouchableOpacity>
-      ))}
+          {data.map((item, index) => (
+            <Grid size={{ xs: 'auto', md: 'auto' }}>
+              <TinyEntityItem
+                listType={listType}
+                entity={item as Entity | EntityRequest}
+                index={index - 1}
+                onPress={() => handleEntityButtonPress(item as Entity)}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </ScrollView>
   )
 }
