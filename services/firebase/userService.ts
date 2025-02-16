@@ -1,17 +1,23 @@
-import { FirebaseService } from "./firebaseService";
+import { EmailRegisterRequest } from '@/types/types'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
-const USERS_PATH = "users";
+const auth = getAuth()
 
-export const UserService = {
-  async getUser(userId: string) {
-    return FirebaseService.getDocument(`${USERS_PATH}/${userId}`);
-  },
+export const registerUserViaEmail = async (
+  emailRegisterRequest: EmailRegisterRequest,
+) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      emailRegisterRequest.email,
+      emailRegisterRequest.password,
+    )
+    return userCredential.user
+  } catch (error) {
+    throw new Error((error as Error).message)
+  }
+}
 
-  async updateUser(userId: string, data: any) {
-    return FirebaseService.updateDocument(`${USERS_PATH}/${userId}`, data);
-  },
-
-  async createUser(userId: string, userData: any) {
-    return FirebaseService.setDocument(`${USERS_PATH}/${userId}`, userData);
-  },
-};
+export default {
+  registerUserViaEmail,
+}

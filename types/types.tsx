@@ -20,6 +20,11 @@ export type WorldRequest = {
   topLevelEntities?: EntityLite[] | null
 }
 
+export type EmailRegisterRequest = {
+  email: string
+  password: string
+}
+
 export type Entity = {
   id: string
   name: string
