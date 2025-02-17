@@ -1,6 +1,6 @@
 import { paths } from '@/constants/pathNames'
 import { requestRegisterUser } from '@/redux/slices/userSlice'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'expo-router'
 import {
@@ -10,8 +10,12 @@ import {
   StyledInput,
   Title,
   LabelText,
+  SubTitle,
+  PrimaryContainer,
 } from '@/assets/styles/globalStyles'
-import { Container } from '@mui/system'
+import { View } from 'react-native'
+import { colors } from '@/assets/colors'
+import dimensions from '@/assets/dimensions'
 
 const Register: React.FC = () => {
   const dispatch = useDispatch()
@@ -26,48 +30,57 @@ const Register: React.FC = () => {
     router.push(paths.home)
   }
 
-  useEffect(() => {
-    setEmail(`test${Math.random()}@test.com`)
-    setPassword(`test${Math.random()}`)
-    setUserName(`test${Math.random()}`)
-  }, [])
-
   return (
-    <Container>
-      <Title>Register</Title>
-      <StyledForm onSubmit={handleRegister}>
-        <InputWrapper>
-          <LabelText>Email:</LabelText>
-          <StyledInput
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            inputMode="email"
-            autoCapitalize="none"
-            required
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <LabelText>Username:</LabelText>
-          <StyledInput
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            autoCapitalize="none"
-            required
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <LabelText>Password:</LabelText>
-          <StyledInput
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </InputWrapper>
-        <PrimaryButton onClick={handleRegister}>
-          <LabelText>Register</LabelText>
-        </PrimaryButton>
-      </StyledForm>
-    </Container>
+    <View
+      style={{
+        backgroundColor: colors.primary,
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: parseInt(dimensions.marginXLarge, 10),
+      }}
+    >
+      <PrimaryContainer style={{ width: 400 }}>
+        <Title>Create An Account For Free!</Title>
+        <SubTitle>
+          I love how the "free" implies some unmissible opportunity. As if there
+          are sites where you pay to register...
+        </SubTitle>
+        <StyledForm onSubmit={handleRegister}>
+          <InputWrapper>
+            <StyledInput
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              inputMode="email"
+              autoCapitalize="none"
+              label="Email"
+              required
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <StyledInput
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              autoCapitalize="none"
+              label="Username"
+              required
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <StyledInput
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              label="Password"
+              required
+            />
+          </InputWrapper>
+          <PrimaryButton onClick={handleRegister}>
+            <LabelText>Register</LabelText>
+          </PrimaryButton>
+        </StyledForm>
+      </PrimaryContainer>
+    </View>
   )
 }
 

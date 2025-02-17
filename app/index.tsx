@@ -12,6 +12,7 @@ import {
   ListButtonsContainer,
   PrimaryButton,
 } from '@/assets/styles/globalStyles'
+import { colors } from '@/assets/colors'
 
 export default function HomePage() {
   const dispatch = useDispatch()
@@ -36,8 +37,8 @@ export default function HomePage() {
   }
 
   return (
-    <View style={{ height: '100%', padding: 20 }}>
-      <ListButtonsContainer>
+    <View style={{ height: '100%', backgroundColor: colors.primary }}>
+      <ListButtonsContainer style={{ paddingTop: 20 }}>
         <PrimaryButton onClick={handleLoginButtonClick}>Login</PrimaryButton>|
         <PrimaryButton onClick={handleRegisterButtonClick}>
           Register

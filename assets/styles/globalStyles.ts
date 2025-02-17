@@ -36,6 +36,17 @@ const primaryText = styled.span`
   font-family: 'NotoSans';
 `
 
+export const PrimaryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: ${dimensions.marginMedium};
+  border: ${dimensions.borderSize} solid ${colors.textDark};
+  border-radius: ${dimensions.borderRadius};
+  padding: ${dimensions.marginMedium};
+`
+
 export const CommonIcon = styled(MaterialIcons).attrs({
   size: 24,
   color: `${colors.textDark}`,
@@ -55,13 +66,13 @@ export const ListButtonsContainer = styled.div`
 `
 
 export const StyledForm = styled.div`
-  width: 100%;
-  max-width: 400px;
+  max-width: ${dimensions.formMaxWidth};
+  display: flex;
+  flex-direction: column;
+  gap: ${dimensions.marginMedium};
 `
 
-export const InputWrapper = styled.div`
-  margin-bottom: ${dimensions.marginMedium};
-`
+export const InputWrapper = styled.div``
 
 export const StyledInput = styled(TextField)`
   font-size: ${dimensions.textMedium};
@@ -89,8 +100,14 @@ export const Title = styled(primaryText)`
   text-align: center;
 `
 
+export const SubTitle = styled(primaryText)`
+  font-size: ${dimensions.textMedium};
+  text-align: center;
+`
+
 export const LabelText = styled(primaryText)`
   font-size: ${dimensions.textMedium};
+  color: ${colors.textDark};
 `
 
 // -------- Common Components End -------- //
@@ -145,6 +162,11 @@ export const WorldDescription = styled(primaryText)`
   text-align: center;
   width: 100%;
   font-size: ${dimensions.textLarge};
+`
+
+export const WorldCreator = styled(primaryText)`
+  text-align: center;
+  font-size: ${dimensions.textMedium};
 `
 
 // tinyEntityList.tsx

@@ -11,6 +11,7 @@ const dimensions = {
   textXXXLarge: '100px',
   borderRadius: '8px',
   borderSize: '2px',
+  formMaxWidth: '400px',
 }
 
 export default dimensions
