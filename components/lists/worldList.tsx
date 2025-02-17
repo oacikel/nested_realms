@@ -4,6 +4,7 @@ import {
   WorldCarousel,
   WorldCarouselContainer,
   WorldDescription,
+  WorldCreator,
   WorldItemContainer,
   WorldName,
 } from '@/assets/styles/globalStyles'
@@ -43,6 +44,8 @@ const WorldList: React.FC<WorldListProps> = ({ worlds }) => {
           <WorldItemContainer>
             <WorldName>{world.name}</WorldName>
             <WorldDescription>{world.description}</WorldDescription>
+            by
+            <WorldCreator>{world.creatorUserName}</WorldCreator>
             <ListButtonsContainer>
               <PrimaryButton onClick={() => handleSelectWorldClick(world)}>
                 <span>?</span>

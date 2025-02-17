@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app'
 import { connectDatabaseEmulator, getDatabase, ref } from 'firebase/database'
 import { getAnalytics, isSupported } from 'firebase/analytics'
+import { connectAuthEmulator, getAuth } from 'firebase/auth'
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -21,6 +22,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
+
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app)
+
 let analytics
 isSupported().then((supported) => {
   if (supported) {
@@ -33,6 +38,7 @@ const db = getDatabase(app)
 if (process.env.NODE_ENV === 'development') {
   // Point to the RTDB emulator running on localhost.
   connectDatabaseEmulator(db, '127.0.0.1', 9000)
+  connectAuthEmulator(auth, 'http://127.0.0.1:9099')
 }
 
-export { db, app, analytics, ref }
+export { db, app, auth, analytics, ref }

@@ -5,6 +5,8 @@ export type EntityLite = {
 }
 export type World = {
   id: string
+  creatorId: string
+  creatorUserName: string
   name: string
   description: string
   createdAt: Date
@@ -13,11 +15,19 @@ export type World = {
 }
 
 export type WorldRequest = {
+  creatorId: string
+  creatorUserName: string
   name: string
   description: string
   createdAt: Date
   entityIds?: EntityLite[] | null
   topLevelEntities?: EntityLite[] | null
+}
+
+export type EmailRegisterRequest = {
+  email: string
+  password: string
+  userName: string
 }
 
 export type Entity = {
@@ -47,3 +57,10 @@ export interface AddEntitiesPayload {
 }
 
 export type EntityListType = 'selections' | 'history'
+
+export type User = {
+  id: string
+  email: string | null
+  createdWorldIds?: string[]
+  userName?: string
+}

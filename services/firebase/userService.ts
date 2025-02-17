@@ -1,17 +1,39 @@
-import { FirebaseService } from "./firebaseService";
+import { EmailRegisterRequest, User } from '@/types/types'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { FirebaseService } from './firebaseService'
 
-const USERS_PATH = "users";
+const auth = getAuth()
+const USER_PATH = 'users'
 
-export const UserService = {
-  async getUser(userId: string) {
-    return FirebaseService.getDocument(`${USERS_PATH}/${userId}`);
-  },
+export const registerUserViaEmail = async (
+  emailRegisterRequest: EmailRegisterRequest,
+) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      emailRegisterRequest.email,
+      emailRegisterRequest.password,
+    )
+    return userCredential.user
+  } catch (error) {
+    throw new Error((error as Error).message)
+  }
+}
 
-  async updateUser(userId: string, data: any) {
-    return FirebaseService.updateDocument(`${USERS_PATH}/${userId}`, data);
-  },
+export const createUserProfileDocument = async (user: User) => {
+  const worldId = await FirebaseService.setDocument(
+    `${USER_PATH}/${user.id}`, // We use the user's uid in authentication as their id in the database.
+    user,
+    false,
+  )
+  return worldId
+}
 
-  async createUser(userId: string, userData: any) {
-    return FirebaseService.setDocument(`${USERS_PATH}/${userId}`, userData);
-  },
-};
+export const updateUser = async (user: Partial<User>, uid: string) => {
+  await FirebaseService.updateDocument(`${USER_PATH}/${uid}`, user)
+}
+export default {
+  registerUserViaEmail,
+  createUserProfileDocument,
+  updateUser,
+}

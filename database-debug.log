@@ -1,9 +1,9 @@
-17:32:15.651 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-17:32:15.728 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
-17:32:19.116 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - nested-realms-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 58ms, init: 0ms
-17:32:19.151 [NamespaceSystem-blocking-namespace-operation-dispatcher-6] INFO com.firebase.core.namespace.StateManager - Namespace nested-realms-default-rtdb status Active to Active
-17:32:53.633 [FirebaseWorkerPool-1-3] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+19:45:12.421 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+19:45:12.499 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+19:45:20.313 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - nested-realms-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 56ms, init: 0ms
+19:45:20.357 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace nested-realms-default-rtdb status Active to Active
+19:58:13.865 [FirebaseWorkerPool-1-1] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
 namespace nested-realms, but the emulator is configured for nested-realms-default-rtdb. To 
 opt-out of single project mode add/set the singleProjectMode: false property in 
 the firebase.json emulators config. 
-17:32:53.638 [NamespaceSystem-akka.actor.default-dispatcher-10] INFO com.firebase.core.namespace.NamespaceActor - nested-realms successfully activated FBKV (SurveyIdle(0)) wait: 2ms, init: 0ms
+19:58:13.872 [NamespaceSystem-akka.actor.default-dispatcher-20] INFO com.firebase.core.namespace.NamespaceActor - nested-realms successfully activated FBKV (SurveyIdle(0)) wait: 4ms, init: 0ms

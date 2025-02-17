@@ -48,7 +48,7 @@ function* handleRequestFocusedEntity(
     yield put(requestParentEntity())
     yield put(requestChildrenEntities())
   } catch (error) {
-    console.log('Error saving world:', error)
+    console.log('Error saving entities:', error)
   }
 }
 

@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from 'redux-saga/effects'
+import { takeLatest, call, put, select } from 'redux-saga/effects'
 import {
   addWorld,
   addWorlds,
@@ -8,7 +8,9 @@ import {
 } from '../slices/worldSlice'
 import { PayloadAction } from '@reduxjs/toolkit'
 import WorldService from '@/services/firebase/worldService'
-import { World, WorldRequest } from '@/types/types'
+import { User, World, WorldRequest } from '@/types/types'
+import { updateUser } from '../slices/userSlice'
+import { getUser } from '../selectors/userSelector'
 
 function* handleRequestExistingWorlds(): Generator<unknown, void, unknown> {
   try {
@@ -27,11 +29,21 @@ function* handleRequestAddWorld(
 ): Generator<unknown, void, unknown> {
   try {
     const worldRequest = action.payload
+    const user = yield select(getUser)
+    const userId = (user as User)?.id
+    const userName = (user as User)?.userName
+    if (!userId) {
+      throw new Error('User not found')
+    }
+    worldRequest.creatorId = userId as string
+    worldRequest.creatorUserName = userName as string
+
     const worldId: string = (yield call(
       WorldService.createWorld,
       worldRequest,
     )) as string
     yield put(addWorld({ ...worldRequest, id: worldId } as World))
+    yield put(updateUser({ createdWorldIds: [worldId] }))
   } catch (error) {
     console.log('Error saving world:', error)
   }
