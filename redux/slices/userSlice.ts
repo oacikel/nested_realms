@@ -1,15 +1,14 @@
-import { EmailRegisterRequest } from '@/types/types'
+import { EmailRegisterRequest, User } from '@/types/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { User } from 'firebase/auth'
 
 interface UserState {
-  firebaseUser: User | null
+  user: User | null
   loading: boolean
   error: string | null
 }
 
 const initialState: UserState = {
-  firebaseUser: null,
+  user: null,
   loading: false,
   error: null,
 }
@@ -29,7 +28,7 @@ const userSlice = createSlice({
       state.error = null
     },
     signInSuccess: (state, action: PayloadAction<User>) => {
-      state.firebaseUser = action.payload
+      state.user = action.payload
       state.loading = false
     },
     signInFailure: (state, action: PayloadAction<string>) => {
@@ -37,7 +36,18 @@ const userSlice = createSlice({
       state.loading = false
     },
     signOut: (state) => {
-      state.firebaseUser = null
+      state.user = null
+    },
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload
+    },
+    updateUser: (state, action: PayloadAction<Partial<User>>) => {
+      state.user = {
+        ...state.user,
+        ...action.payload,
+        id: state.user?.id || '',
+        email: action.payload.email ?? state.user?.email ?? null,
+      }
     },
   },
 })
@@ -48,5 +58,7 @@ export const {
   signInFailure,
   signOut,
   requestRegisterUser,
+  updateUser,
+  setUser,
 } = userSlice.actions
 export default userSlice.reducer

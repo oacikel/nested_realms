@@ -4,6 +4,7 @@ import { colors } from '../colors'
 import { Carousel } from 'react-responsive-carousel'
 import { MaterialIcons } from '@expo/vector-icons'
 import { EntityListType } from '@/types/types'
+import { TextField } from '@mui/material'
 
 // -------- Common Components Start -------- //
 
@@ -53,7 +54,16 @@ export const ListButtonsContainer = styled.div`
   gap: ${dimensions.marginSmall};
 `
 
-export const StyledInput = styled.textarea`
+export const StyledForm = styled.div`
+  width: 100%;
+  max-width: 400px;
+`
+
+export const InputWrapper = styled.div`
+  margin-bottom: ${dimensions.marginMedium};
+`
+
+export const StyledInput = styled(TextField)`
   font-size: ${dimensions.textMedium};
   font-family: 'NotoSans';
   border-radius: ${dimensions.borderRadius};
@@ -72,6 +82,15 @@ export const ContainerColumn = styled.div`
     width: 100%;
     font-family: 'NotoSans';
   }
+`
+
+export const Title = styled(primaryText)`
+  font-size: ${dimensions.textXLarge};
+  text-align: center;
+`
+
+export const LabelText = styled(primaryText)`
+  font-size: ${dimensions.textMedium};
 `
 
 // -------- Common Components End -------- //

@@ -1,67 +1,72 @@
-[debug] [2025-02-16T06:59:53.488Z] ----------------------------------------------------------------------
-[debug] [2025-02-16T06:59:53.489Z] Command:       /usr/local/bin/firebase /Users/ocul/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase emulators:start
-[debug] [2025-02-16T06:59:53.489Z] CLI Version:   13.0.3
-[debug] [2025-02-16T06:59:53.490Z] Platform:      darwin
-[debug] [2025-02-16T06:59:53.490Z] Node Version:  v18.5.0
-[debug] [2025-02-16T06:59:53.491Z] Time:          Sun Feb 16 2025 09:59:53 GMT+0300 (GMT+03:00)
-[debug] [2025-02-16T06:59:53.492Z] ----------------------------------------------------------------------
+[debug] [2025-02-16T16:45:09.996Z] ----------------------------------------------------------------------
+[debug] [2025-02-16T16:45:09.998Z] Command:       /usr/local/bin/firebase /Users/ocul/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase emulators:start
+[debug] [2025-02-16T16:45:09.998Z] CLI Version:   13.0.3
+[debug] [2025-02-16T16:45:09.998Z] Platform:      darwin
+[debug] [2025-02-16T16:45:09.999Z] Node Version:  v18.5.0
+[debug] [2025-02-16T16:45:10.004Z] Time:          Sun Feb 16 2025 19:45:09 GMT+0300 (GMT+03:00)
+[debug] [2025-02-16T16:45:10.004Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2025-02-16T06:59:53.586Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2025-02-16T06:59:53.587Z] > authorizing via signed-in user (ogulcan.acikel@gmail.com)
-[debug] [2025-02-16T06:59:53.715Z] openjdk version "17.0.13" 2024-10-15 LTS
+[debug] [2025-02-16T16:45:10.116Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-02-16T16:45:10.119Z] > authorizing via signed-in user (ogulcan.acikel@gmail.com)
+[debug] [2025-02-16T16:45:10.264Z] openjdk version "17.0.13" 2024-10-15 LTS
 OpenJDK Runtime Environment Zulu17.54+21-CA (build 17.0.13+11-LTS)
 
-[debug] [2025-02-16T06:59:53.717Z] OpenJDK 64-Bit Server VM Zulu17.54+21-CA (build 17.0.13+11-LTS, mixed mode, sharing)
+[debug] [2025-02-16T16:45:10.267Z] OpenJDK 64-Bit Server VM Zulu17.54+21-CA (build 17.0.13+11-LTS, mixed mode, sharing)
 
-[debug] [2025-02-16T06:59:53.721Z] Parsed Java major version: 17
+[debug] [2025-02-16T16:45:10.269Z] Parsed Java major version: 17
 [info] i  emulators: Starting emulators: auth, database, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, database, hosting"}}
-[debug] [2025-02-16T06:59:54.499Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-02-16T06:59:54.501Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-02-16T06:59:54.501Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-02-16T16:45:11.128Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-02-16T16:45:11.129Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-02-16T16:45:11.131Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
 [warn] ⚠  hosting: Hosting Emulator unable to start on port 5001, starting on 5002 instead. {"metadata":{"emulator":{"name":"hosting"},"message":"Hosting Emulator unable to start on port 5001, starting on 5002 instead."}}
-[debug] [2025-02-16T06:59:54.501Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-02-16T06:59:54.503Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5002}]},"metadata":{"message":"assigned listening specs for emulators"}}
-[debug] [2025-02-16T06:59:54.513Z] [hub] writing locator at /var/folders/yy/t6z24k8577jgzpzyq4znf8jw0000gn/T/hub-nested-realms.json
-[debug] [2025-02-16T06:59:54.521Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms [none]
-[debug] [2025-02-16T06:59:54.857Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms 200
-[debug] [2025-02-16T06:59:54.858Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms {"projectId":"nested-realms","projectNumber":"1018412166235","displayName":"Nested Realms","name":"projects/nested-realms","resources":{"hostingSite":"nested-realms","realtimeDatabaseInstance":"nested-realms-default-rtdb"},"state":"ACTIVE","etag":"1_1827f501-5fa7-44d4-829a-8cccca466fd3"}
-[debug] [2025-02-16T06:59:54.859Z] database rules config:  [{"instance":"nested-realms-default-rtdb","rules":"/Users/ocul/Documents/Projects/Personal/nested_realms/database.rules.json"}]
-[debug] [2025-02-16T06:59:54.863Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
-[debug] [2025-02-16T06:59:54.863Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2025-02-16T06:59:54.863Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
-[debug] [2025-02-16T06:59:54.863Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/Users/ocul/.cache/firebase/emulators/firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning"],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"/Users/ocul/.cache/firebase/emulators/firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\"],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[debug] [2025-02-16T16:45:11.131Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-02-16T16:45:11.133Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5002}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2025-02-16T16:45:11.144Z] [hub] writing locator at /var/folders/yy/t6z24k8577jgzpzyq4znf8jw0000gn/T/hub-nested-realms.json
+[debug] [2025-02-16T16:45:11.154Z] > refreshing access token with scopes: []
+[debug] [2025-02-16T16:45:11.157Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-02-16T16:45:11.159Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-02-16T16:45:11.376Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-02-16T16:45:11.378Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-02-16T16:45:11.393Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms [none]
+[debug] [2025-02-16T16:45:11.835Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms 200
+[debug] [2025-02-16T16:45:11.835Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms {"projectId":"nested-realms","projectNumber":"1018412166235","displayName":"Nested Realms","name":"projects/nested-realms","resources":{"hostingSite":"nested-realms","realtimeDatabaseInstance":"nested-realms-default-rtdb"},"state":"ACTIVE","etag":"1_1827f501-5fa7-44d4-829a-8cccca466fd3"}
+[debug] [2025-02-16T16:45:11.836Z] database rules config:  [{"instance":"nested-realms-default-rtdb","rules":"/Users/ocul/Documents/Projects/Personal/nested_realms/database.rules.json"}]
+[debug] [2025-02-16T16:45:11.840Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2025-02-16T16:45:11.841Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-02-16T16:45:11.841Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2025-02-16T16:45:11.841Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/Users/ocul/.cache/firebase/emulators/firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning"],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"/Users/ocul/.cache/firebase/emulators/firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\"],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
 [info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
-[debug] [2025-02-16T06:59:55.429Z] 09:59:55.428 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
- {"metadata":{"emulator":{"name":"database"},"message":"09:59:55.428 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
-[debug] [2025-02-16T06:59:55.509Z] 09:59:55.508 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
- {"metadata":{"emulator":{"name":"database"},"message":"09:59:55.508 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000\n"}}
-[debug] [2025-02-16T07:00:00.280Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/nested-realms/sites 
-[debug] [2025-02-16T07:00:01.860Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/nested-realms/sites 200
-[debug] [2025-02-16T07:00:01.865Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/nested-realms/sites {"sites":[{"name":"projects/nested-realms/sites/nested-realms","defaultUrl":"https://nested-realms.web.app","appId":"1:1018412166235:web:20e5e84af8e8017b9a237e","type":"DEFAULT_SITE"}]}
-[debug] [2025-02-16T07:00:01.866Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms/webApps/1:1018412166235:web:20e5e84af8e8017b9a237e/config [none]
-[debug] [2025-02-16T07:00:02.650Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms/webApps/1:1018412166235:web:20e5e84af8e8017b9a237e/config 200
-[debug] [2025-02-16T07:00:02.655Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms/webApps/1:1018412166235:web:20e5e84af8e8017b9a237e/config {"projectId":"nested-realms","appId":"1:1018412166235:web:20e5e84af8e8017b9a237e","databaseURL":"https://nested-realms-default-rtdb.firebaseio.com","storageBucket":"nested-realms.firebasestorage.app","apiKey":"AIzaSyDH4Qx6zoiWZlwwVEPxpCCRDdgAAQcb_44","authDomain":"nested-realms.firebaseapp.com","messagingSenderId":"1018412166235","measurementId":"G-1RWME7GFEF"}
-[debug] [2025-02-16T07:00:02.673Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms [none]
-[debug] [2025-02-16T07:00:02.955Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms 200
-[debug] [2025-02-16T07:00:02.958Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms {"projectId":"nested-realms","projectNumber":"1018412166235","displayName":"Nested Realms","name":"projects/nested-realms","resources":{"hostingSite":"nested-realms","realtimeDatabaseInstance":"nested-realms-default-rtdb"},"state":"ACTIVE","etag":"1_1827f501-5fa7-44d4-829a-8cccca466fd3"}
+[debug] [2025-02-16T16:45:12.423Z] 19:45:12.421 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+ {"metadata":{"emulator":{"name":"database"},"message":"19:45:12.421 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
+[debug] [2025-02-16T16:45:12.499Z] 19:45:12.499 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+ {"metadata":{"emulator":{"name":"database"},"message":"19:45:12.499 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000\n"}}
+[debug] [2025-02-16T16:45:17.336Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/nested-realms/sites 
+[debug] [2025-02-16T16:45:18.564Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/nested-realms/sites 200
+[debug] [2025-02-16T16:45:18.569Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/nested-realms/sites {"sites":[{"name":"projects/nested-realms/sites/nested-realms","defaultUrl":"https://nested-realms.web.app","appId":"1:1018412166235:web:20e5e84af8e8017b9a237e","type":"DEFAULT_SITE"}]}
+[debug] [2025-02-16T16:45:18.571Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms/webApps/1:1018412166235:web:20e5e84af8e8017b9a237e/config [none]
+[debug] [2025-02-16T16:45:19.384Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms/webApps/1:1018412166235:web:20e5e84af8e8017b9a237e/config 200
+[debug] [2025-02-16T16:45:19.389Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms/webApps/1:1018412166235:web:20e5e84af8e8017b9a237e/config {"projectId":"nested-realms","appId":"1:1018412166235:web:20e5e84af8e8017b9a237e","databaseURL":"https://nested-realms-default-rtdb.firebaseio.com","storageBucket":"nested-realms.firebasestorage.app","apiKey":"AIzaSyDH4Qx6zoiWZlwwVEPxpCCRDdgAAQcb_44","authDomain":"nested-realms.firebaseapp.com","messagingSenderId":"1018412166235","measurementId":"G-1RWME7GFEF"}
+[debug] [2025-02-16T16:45:19.408Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms [none]
+[debug] [2025-02-16T16:45:19.727Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms 200
+[debug] [2025-02-16T16:45:19.732Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nested-realms {"projectId":"nested-realms","projectNumber":"1018412166235","displayName":"Nested Realms","name":"projects/nested-realms","resources":{"hostingSite":"nested-realms","realtimeDatabaseInstance":"nested-realms-default-rtdb"},"state":"ACTIVE","etag":"1_1827f501-5fa7-44d4-829a-8cccca466fd3"}
 [info] i  hosting[nested-realms]: Serving hosting files from: dist {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mdist\u001b[22m"}}
 [info] ✔  hosting[nested-realms]: Local server: http://127.0.0.1:5002 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5002\u001b[22m\u001b[24m"}}
-[debug] [2025-02-16T07:00:03.102Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2025-02-16T07:00:03.102Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
-[debug] [2025-02-16T07:00:03.102Z] Starting Emulator UI with command {"binary":"node","args":["/Users/ocul/.cache/firebase/emulators/ui-v1.11.7/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/ocul/.cache/firebase/emulators/ui-v1.11.7/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[debug] [2025-02-16T16:45:19.875Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-02-16T16:45:19.875Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2025-02-16T16:45:19.875Z] Starting Emulator UI with command {"binary":"node","args":["/Users/ocul/.cache/firebase/emulators/ui-v1.11.7/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/ocul/.cache/firebase/emulators/ui-v1.11.7/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
 [info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
-[debug] [2025-02-16T07:00:03.279Z] Web / API server started at 127.0.0.1:4000
+[debug] [2025-02-16T16:45:20.058Z] Web / API server started at 127.0.0.1:4000
  {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
-[debug] [2025-02-16T07:00:03.284Z] Web / API server started at ::1:4000
+[debug] [2025-02-16T16:45:20.058Z] Web / API server started at ::1:4000
  {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
-[debug] [2025-02-16T07:00:03.399Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=nested-realms-default-rtdb
-[debug] [2025-02-16T07:00:03.401Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\n  \"rules\": {\n    \".read\": \"now < 1739912400000\",  // 2025-2-19\n    \".write\": \"now < 1739912400000\",  // 2025-2-19\n  }\n}"
-[debug] [2025-02-16T07:00:03.542Z] 10:00:03.542 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - nested-realms-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 56ms, init: 0ms
- {"metadata":{"emulator":{"name":"database"},"message":"10:00:03.542 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - nested-realms-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 56ms, init: 0ms\n"}}
-[debug] [2025-02-16T07:00:03.577Z] 10:00:03.577 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace nested-realms-default-rtdb status Active to Active
- {"metadata":{"emulator":{"name":"database"},"message":"10:00:03.577 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace nested-realms-default-rtdb status Active to Active\n"}}
-[debug] [2025-02-16T07:00:03.602Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
-[debug] [2025-02-16T07:00:03.602Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
+[debug] [2025-02-16T16:45:20.167Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=nested-realms-default-rtdb
+[debug] [2025-02-16T16:45:20.167Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\n  \"rules\": {\n    \".read\": \"now < 1739912400000\",  // 2025-2-19\n    \".write\": \"now < 1739912400000\",  // 2025-2-19\n  }\n}"
+[debug] [2025-02-16T16:45:20.314Z] 19:45:20.313 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - nested-realms-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 56ms, init: 0ms
+ {"metadata":{"emulator":{"name":"database"},"message":"19:45:20.313 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - nested-realms-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 56ms, init: 0ms\n"}}
+[debug] [2025-02-16T16:45:20.357Z] 19:45:20.357 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace nested-realms-default-rtdb status Active to Active
+ {"metadata":{"emulator":{"name":"database"},"message":"19:45:20.357 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace nested-realms-default-rtdb status Active to Active\n"}}
+[debug] [2025-02-16T16:45:20.373Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
+[debug] [2025-02-16T16:45:20.373Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
 [info] 
 ┌─────────────────────────────────────────────────────────────┐
 │ ✔  All emulators ready! It is now safe to connect your app. │
@@ -82,3 +87,10 @@ OpenJDK Runtime Environment Zulu17.54+21-CA (build 17.0.13+11-LTS)
 
 Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
  
+[debug] [2025-02-16T16:58:13.866Z] 19:58:13.865 [FirebaseWorkerPool-1-1] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace nested-realms, but the emulator is configured for nested-realms-default-rtdb. To 
+opt-out of single project mode add/set the singleProjectMode: false property in 
+the firebase.json emulators config. 
+ {"metadata":{"emulator":{"name":"database"},"message":"19:58:13.865 [FirebaseWorkerPool-1-1] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested \nnamespace nested-realms, but the emulator is configured for nested-realms-default-rtdb. To \nopt-out of single project mode add/set the singleProjectMode: false property in \nthe firebase.json emulators config. \n"}}
+[debug] [2025-02-16T16:58:13.873Z] 19:58:13.872 [NamespaceSystem-akka.actor.default-dispatcher-20] INFO com.firebase.core.namespace.NamespaceActor - nested-realms successfully activated FBKV (SurveyIdle(0)) wait: 4ms, init: 0ms
+ {"metadata":{"emulator":{"name":"database"},"message":"19:58:13.872 [NamespaceSystem-akka.actor.default-dispatcher-20] INFO com.firebase.core.namespace.NamespaceActor - nested-realms successfully activated FBKV (SurveyIdle(0)) wait: 4ms, init: 0ms\n"}}
