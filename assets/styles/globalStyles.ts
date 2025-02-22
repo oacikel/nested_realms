@@ -77,9 +77,6 @@ export const InputWrapper = styled.div``
 export const StyledInput = styled(TextField)`
   font-size: ${dimensions.textMedium};
   font-family: 'NotoSans';
-  border-radius: ${dimensions.borderRadius};
-  border: ${dimensions.borderSize} solid ${colors.textDark};
-  padding: ${dimensions.marginSmall};
   resize: vertical;
 `
 

@@ -8,6 +8,7 @@ import {
 } from '@/types/types'
 import {
   addEntityToStore,
+  requestAIAssist,
   requestChildrenEntities,
   requestCreateChildEntity,
   requestFocusedEntity,
@@ -17,6 +18,7 @@ import {
   setFocusedEntity,
   setNeighborEntities,
   setParentEntity,
+  setSuggestedEntities,
   setVisitedEntities,
 } from '../slices/entitiesSlice'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -31,6 +33,7 @@ import {
 import { waitForState } from '../reduxUtils'
 import { getSelectedWorld, getWorldById } from '../selectors/worldSelectors'
 import { updateWorld } from '../slices/worldSlice'
+import { HuggingFaceService } from '@/services/huggingFaceService'
 
 function* handleRequestFocusedEntity(
   action: PayloadAction<EntityLite>,
@@ -225,6 +228,20 @@ function* handleSetFocusedEntity(
   }
 }
 
+function* handleAIAssist(
+  action: ReturnType<typeof requestAIAssist>,
+): Generator<unknown, void, unknown> {
+  try {
+    const aiSuggestions = HuggingFaceService.suggestChildrenEntities(
+      action.payload,
+    )
+    console.log('AI Assist suggestions:', aiSuggestions)
+  } catch (error) {
+    console.error('AI Assist failed:', error)
+    yield put(setSuggestedEntities(null)) // Clear if failure occurs
+  }
+}
+
 const fetchMultipleEntities = async (
   worldId: string,
   entityIds: string[],
@@ -281,4 +298,5 @@ export function* watchEntitiesSaga() {
   )
   yield takeLatest(addEntityToStore.type, handleAddEntityToStore)
   yield takeLatest(setFocusedEntity.type, handleSetFocusedEntity)
+  yield takeLatest(requestAIAssist.type, handleAIAssist)
 }
