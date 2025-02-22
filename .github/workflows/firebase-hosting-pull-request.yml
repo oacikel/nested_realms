@@ -9,7 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm run predeploy && firebase deploy
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Use the appropriate Node.js version
+      - run: npm install
+      - run: npm install -g expo-cli # Install expo-cli globally
+      - run: npx expo export:web # Use npx to run expo commands
+      - run: firebase deploy --only hosting
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
