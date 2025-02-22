@@ -1,13 +1,15 @@
 import { paths } from '@/constants/pathNames'
+import { getUser } from '@/redux/selectors/userSelector'
 import { navigateToHome } from '@/redux/slices/navigationSlice'
 import { requestAddWorld } from '@/redux/slices/worldSlice'
 import { WorldRequest } from '@/types/types'
 import { router } from 'expo-router'
 import React, { useState } from 'react'
 import { View, Text, TextInput, Button } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function CreateNewWorld() {
+  const user = useSelector(getUser)
   const [name, setName] = useState<string | null>(null)
   const [description, setDescription] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -19,7 +21,14 @@ export default function CreateNewWorld() {
       setError('Please enter a name and description')
       return
     }
+    if (!user) {
+      setError('You must be logged in to create a world')
+      router.back()
+      return
+    }
     const newWorld: WorldRequest = {
+      creatorId: user.id,
+      creatorUserName: user.userName,
       name,
       description,
       createdAt: new Date(),

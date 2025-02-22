@@ -62,7 +62,7 @@ export const FirebaseService = {
     const collectionRef = ref(db, path)
     const snapshot = await get(collectionRef)
     if (!snapshot.exists()) return []
-
+    console.log(snapshot.val())
     const data = snapshot.val()
     return Object.keys(data).map((key) => ({ id: key, ...data[key] }))
   },

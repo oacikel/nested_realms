@@ -44,7 +44,6 @@ const EntityDetail = () => {
       throw new Error('Focused entity is not set')
       return
     }
-    entity.parentId = focusedEntity.id
     dispatch(requestCreateChildEntity(entity))
   }
 
@@ -73,6 +72,9 @@ const EntityDetail = () => {
           <ScrollView>
             <EntityDetailName>{focusedEntity.name}</EntityDetailName>
             <EntityDetailDescription>
+              {focusedEntity.creatorUserName}
+            </EntityDetailDescription>
+            <EntityDetailDescription>
               {focusedEntity.description}
             </EntityDetailDescription>
           </ScrollView>
@@ -93,7 +95,7 @@ const EntityDetail = () => {
           <EntityCreationForm
             onCreateEntityPress={onCreateEntityPress}
             worldId={focusedEntity.worldId as string}
-            parentId={focusedEntity.id} // Since this is on world creation page. There is no upper parent entity.
+            parentId={focusedEntity.id}
           />
         </View>
       )}

@@ -30,8 +30,15 @@ export type EmailRegisterRequest = {
   userName: string
 }
 
+export type LoginRequest = {
+  email: string
+  password: string
+}
+
 export type Entity = {
   id: string
+  creatorId: string
+  creatorUserName: string
   name: string
   description?: string
   createdAt: Date
@@ -43,6 +50,8 @@ export type Entity = {
 
 export type EntityRequest = {
   worldId: string
+  creatorId: string
+  creatorUserName: string
   name: string
   description?: string
   createdAt: Date
@@ -60,7 +69,15 @@ export type EntityListType = 'selections' | 'history'
 
 export type User = {
   id: string
+  userName: string
   email: string | null
   createdWorldIds?: string[]
-  userName?: string
+}
+
+export type EntitySuggestionRequest = {
+  parentName: string
+  numChildren: number
+  description?: string
+  existingChildren?: string[]
+  additionalInfo?: string
 }

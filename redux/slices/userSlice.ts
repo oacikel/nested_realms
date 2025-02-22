@@ -1,4 +1,4 @@
-import { EmailRegisterRequest, User } from '@/types/types'
+import { EmailRegisterRequest, LoginRequest, User } from '@/types/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface UserState {
@@ -18,12 +18,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     requestRegisterUser: (
-      _state,
+      state,
       _action: PayloadAction<EmailRegisterRequest>,
     ) => {
-      // handled in saga
+      state.loading = true
+      state.error = null
     },
-    signInStart: (state) => {
+    requestLoginUser: (state, _action: PayloadAction<LoginRequest>) => {
       state.loading = true
       state.error = null
     },
@@ -49,15 +50,19 @@ const userSlice = createSlice({
         email: action.payload.email ?? state.user?.email ?? null,
       }
     },
+    createUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload
+    },
   },
 })
 
 export const {
-  signInStart,
   signInSuccess,
   signInFailure,
   signOut,
+  requestLoginUser,
   requestRegisterUser,
+  createUser,
   updateUser,
   setUser,
 } = userSlice.actions
