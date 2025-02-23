@@ -6,11 +6,8 @@ const selectWorldState = (state: RootState) => state.world
 export const getAllWorlds = (state: RootState) => state.world.worlds
 
 export const getWorldById = (id: string) =>
-  createSelector([selectWorldState], (worldState): World => {
+  createSelector([selectWorldState], (worldState): World | undefined => {
     const world = worldState.worlds.find((world) => world.id === id)
-    if (!world) {
-      throw new Error(`World with id ${id} not found`)
-    }
     return world
   })
 
