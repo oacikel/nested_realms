@@ -17,6 +17,7 @@ import {
   WorldDetailDescription,
   WorldDetailTitle,
 } from '@/assets/styles/globalStyles'
+import { selectWorld } from '@/redux/slices/worldSlice'
 
 const WorldDetail = () => {
   const { worldId } = useLocalSearchParams()
@@ -34,8 +35,11 @@ const WorldDetail = () => {
   }
 
   useEffect(() => {
+    if (world) {
+      dispatch(selectWorld(world))
+    }
     dispatch(clearState())
-  }, [])
+  }, [world])
 
   useEffect(() => {
     if (world && world.topLevelEntities) {
