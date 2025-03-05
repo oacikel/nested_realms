@@ -2,24 +2,24 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'expo-router'
 import { View, Button } from 'react-native'
-import { navigateToCreateNewWorld } from '@/redux/slices/navigationSlice'
+import { navigateTocreateNewWorld } from '@/redux/slices/navigationSlice'
 import { paths } from '@/constants/pathNames'
 import React from 'react'
-import { getAllWorlds } from '@/redux/selectors/worldSelectors'
 import WorldList from '@/components/lists/worldList'
 import {
   ListButtonsContainer,
   PrimaryButton,
 } from '@/assets/styles/globalStyles'
 import { colors } from '@/assets/colors'
+import { getWorldsToDisplay } from '@/redux/selectors/worldSelectors'
 
 export default function HomePage() {
   const dispatch = useDispatch()
   const router = useRouter()
-  const worlds = useSelector(getAllWorlds)
+  const worlds = useSelector(getWorldsToDisplay)
 
   const handleNewWorldButtonClick = () => {
-    dispatch(navigateToCreateNewWorld())
+    dispatch(navigateTocreateNewWorld())
     router.push(paths.createWorld)
   }
 

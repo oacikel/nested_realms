@@ -66,7 +66,7 @@ export const ListButtonsContainer = styled.div`
 `
 
 export const StyledForm = styled.div`
-  max-width: ${dimensions.formMaxWidth};
+  width: 33%;
   display: flex;
   flex-direction: column;
   gap: ${dimensions.marginMedium};
@@ -196,6 +196,19 @@ export const TinyEntityDescription = styled(primaryText)`
   text-align: start;
 `
 // -------- Lists End -------- //
+
+// -------- World Creation Page Start -------- //
+export const WorldCreationFormContainer = styled(BaseItemContianer)`
+  display: flex; /* Ensures it fills the space */
+  flex: 1; /* Takes up all available height */
+  height: 100%;
+  width: 100%;
+  padding: ${dimensions.marginLarge};
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.primary};
+  gap: ${dimensions.marginLarge};
+`
 
 // -------- World Detail Page Start -------- //
 export const WorldDetailContainer = styled(BaseItemContianer)`

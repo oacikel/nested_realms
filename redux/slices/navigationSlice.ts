@@ -11,8 +11,8 @@ const navigationSlice = createSlice({
     navigateToHome: (state) => {
       state.currentRoute = '/home'
     },
-    navigateToCreateNewWorld: (state) => {
-      state.currentRoute = '/create-new-world'
+    navigateTocreateNewWorld: (state) => {
+      state.currentRoute = '/createNewWorld'
     },
     navigateToWorld: (state, action: PayloadAction<{ worldId: string }>) => {
       state.currentRoute = `/world/${action.payload.worldId}`
@@ -20,6 +20,6 @@ const navigationSlice = createSlice({
   },
 })
 
-export const { navigateToHome, navigateToCreateNewWorld, navigateToWorld } =
+export const { navigateToHome, navigateTocreateNewWorld, navigateToWorld } =
   navigationSlice.actions
 export default navigationSlice.reducer

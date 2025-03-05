@@ -18,6 +18,8 @@ import {
   WorldDetailTitle,
 } from '@/assets/styles/globalStyles'
 import { selectWorld } from '@/redux/slices/worldSlice'
+import { getUser } from '@/redux/selectors/userSelector'
+import { canThisUserAddChildren } from '../utils/worldUtils'
 
 const WorldDetail = () => {
   const { worldId } = useLocalSearchParams()
@@ -27,6 +29,8 @@ const WorldDetail = () => {
   const [topLevelEntities, setTopLevelEntities] = useState<Entity[] | null>([])
 
   const [showChildForm, setShowChildForm] = useState(false)
+  const user = useSelector(getUser)
+  const [canAddChildren, setCanAddChildren] = useState(false)
 
   const world = useSelector(getWorldById(worldId as string))
 
@@ -40,6 +44,12 @@ const WorldDetail = () => {
     }
     dispatch(clearState())
   }, [world])
+
+  useEffect(() => {
+    if (user && world) {
+      setCanAddChildren(canThisUserAddChildren(world, user))
+    }
+  }, [user, world])
 
   useEffect(() => {
     if (world && world.topLevelEntities) {
@@ -88,10 +98,12 @@ const WorldDetail = () => {
           />
         </View>
       )}
-      <PrimaryButton onClick={() => setShowChildForm(!showChildForm)}>
-        <span>+</span>
-        <span>Add Child Entity</span>
-      </PrimaryButton>
+      {canAddChildren && (
+        <PrimaryButton onClick={() => setShowChildForm(!showChildForm)}>
+          <span>+</span>
+          <span>Add Child Entity</span>
+        </PrimaryButton>
+      )}
     </WorldDetailContainer>
   )
 }

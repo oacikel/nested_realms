@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -27,6 +27,8 @@ import {
 import { getSelectedWorld } from '@/redux/selectors/worldSelectors'
 import HomeButton from '@/components/buttons/homeButton'
 import WorldButton from '@/components/buttons/WorldButton'
+import { canThisUserAddChildren } from '../utils/worldUtils'
+import { getUser } from '@/redux/selectors/userSelector'
 
 const EntityDetail = () => {
   const dispatch = useDispatch()
@@ -36,8 +38,16 @@ const EntityDetail = () => {
   const childrenEntities = useSelector(getChildrenEntities)
   const visitedEntities = useSelector(getVisitedEntities)
   const selectedWorld = useSelector(getSelectedWorld)
+  const user = useSelector(getUser)
 
-  const [showChildForm, setShowChildForm] = React.useState(false)
+  const [showChildForm, setShowChildForm] = useState<boolean>(false)
+  const [canAddChildren, setCanAddChildren] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (user && selectedWorld) {
+      setCanAddChildren(canThisUserAddChildren(selectedWorld, user))
+    }
+  }, [user, selectedWorld])
 
   const onCreateEntityPress = (entity: EntityRequest) => {
     if (!focusedEntity) {
@@ -99,10 +109,12 @@ const EntityDetail = () => {
           />
         </View>
       )}
-      <PrimaryButton onClick={() => setShowChildForm(!showChildForm)}>
-        <span>+</span>
-        <span>Add Child Entity</span>
-      </PrimaryButton>
+      {canAddChildren && (
+        <PrimaryButton onClick={() => setShowChildForm(!showChildForm)}>
+          <span>+</span>
+          <span>Add Child Entity</span>
+        </PrimaryButton>
+      )}
     </EntityDetailContainer>
   )
 }

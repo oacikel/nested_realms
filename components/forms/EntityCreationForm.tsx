@@ -5,11 +5,10 @@ import {
 } from '@/redux/selectors/entitySelectors'
 import { getUser } from '@/redux/selectors/userSelector'
 import { getWorldById } from '@/redux/selectors/worldSelectors'
-import { requestAIAssist } from '@/redux/slices/entitiesSlice'
 import { EntityRequest, EntitySuggestionRequest, World } from '@/types/types'
 import React, { useEffect, useState } from 'react'
 import { View, Button, Text } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 interface EntityCreationParams {
   worldId: string
@@ -22,7 +21,6 @@ const EntityCreationForm: React.FC<EntityCreationParams> = ({
   onCreateEntityPress,
   parentId,
 }) => {
-  const dispatch = useDispatch()
   const user = useSelector(getUser)
 
   const world = useSelector(getWorldById(worldId)) as World

@@ -12,6 +12,8 @@ export type World = {
   createdAt: Date
   entityIds: EntityLite[] | null
   topLevelEntities: EntityLite[] | null
+  isPrivate: boolean
+  canOthersAddChildren: boolean
 }
 
 export type WorldRequest = {
@@ -20,6 +22,8 @@ export type WorldRequest = {
   name: string
   description: string
   createdAt: Date
+  isPrivate: boolean
+  canOthersAddChildren: boolean
   entityIds?: EntityLite[] | null
   topLevelEntities?: EntityLite[] | null
 }
